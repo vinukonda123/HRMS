@@ -1,0 +1,51 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Import Form</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="excel_file">
+        <button type="submit">Import</button>
+    </form>
+
+    {% if imported_data %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Bank</th>
+                    <th>IFSC</th>
+                    <th>Branch</th>
+                    <th>Address</th>
+                    <th>City1</th>
+                    <th>City2</th>
+                    <th>State</th>
+                    <th>STD Code</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data_object in imported_data %}
+                    <tr>
+                        <td>{{ data_object.bank }}</td>
+                        <td>{{ data_object.ifsc }}</td>
+                        <td>{{ data_object.branch }}</td>
+                        <td>{{ data_object.address }}</td>
+                        <td>{{ data_object.city1 }}</td>
+                        <td>{{ data_object.city2 }}</td>
+                        <td>{{ data_object.state }}</td>
+                        <td>{{ data_object.std_code }}</td>
+                        <td>{{ data_object.phone }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>

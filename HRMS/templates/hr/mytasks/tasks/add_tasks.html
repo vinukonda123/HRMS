@@ -1,0 +1,334 @@
+
+{%extends 'base1.html'%}
+{%load static%}
+{%block content%}
+<head>
+
+<!-- ... Your previous HTML code ... -->
+
+<style>
+  /* Add spacing between form groups (rows) */
+  .form-group {
+    margin-bottom: 20px; /* Adjust the value to control the spacing */
+  }
+</style>
+
+<style>
+/* Style the custom select container */
+.custom-select {
+  position: relative;
+}
+
+/* Style the select wrapper to create a custom dropdown */
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+
+
+
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Style the select element to make it transparent and positioned over the custom dropdown */
+.custom-select select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* Make the select element transparent */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Style the custom dropdown arrow */
+.select-wrapper::after {
+  content: '\25BC'; /* Unicode character for a down arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 8px;
+}
+
+/* Style the custom dropdown when it's focused or hovered */
+.select-wrapper:hover,
+.select-wrapper:focus {
+  border-color: #007bff; /* Change border color on hover or focus */
+}
+
+
+
+</style>
+
+<style>
+
+body {
+    font-family: 'Poppins' !important ;
+}
+
+
+
+b, strong {
+    font-weight: 600 !important;
+}
+.form-control{
+margin-top:10px;
+}
+.star{
+color:red;
+}
+  .fc-toolbar h2 {
+    color: #0F0BF6;
+    font-size:30px;
+  }
+</style>
+<style>
+/* Define CSS styles for grid lines */
+.fc-view {
+  border: 1px solid #ddd; /* Add borders to the calendar view */
+}
+
+/* Define CSS styles for the block box */
+.event-block {
+  border: 2px solid #333; /* Add a border to the block box */
+  background-color: blue; /* Background color for the block box */
+  position: absolute;
+  z-index: 10000;
+}
+
+/* Style for long event titles */
+.fc-event-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Show the block box on hover */
+.fc-event:hover .event-block {
+  display: block;
+}
+.festival-box {
+  background-color: #BBE6B0; /* Set the background color for festival boxes */
+  padding: 5px;
+  margin: 2px;
+  border: 1px solid #ddd;
+  color: white; /* Text color for festival boxes */
+  font-weight: bold; /* Bold text for festival boxes */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Show ellipsis (...) for long titles */
+  position: relative; /* Use relative positioning */
+  z-index: ; /* Ensure festival boxes are above the calendar cells */
+}
+
+</style>
+<style>
+  #calendar {
+    font-size: 15px; /* Adjust font size as needed */
+  }
+
+  .fc-header-toolbar {
+    padding: 0px; /* Adjust padding as needed */
+  }
+</style>
+
+<link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css'%}">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+</head>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+
+
+
+<main id="main" class="main">
+
+    <section class="section profile">
+
+        <div class="col-xl-12 col-lg-4">
+
+          <div class="card" style="box-shadow:20px 20px 60px whitesmoke,-20px -20px 60px whitesmoke;" >
+
+
+              <h1 class="modal-title fs-5" id="exampleModalLabel_upd" style="padding-top:2%;padding-left:2%;color:blue;font-family:math"><b>Add Task</b></h1>
+              <hr style="margin-left:2%;margin-right:2%">
+      <div class="modal-body" style="padding-left:3%;padding-right:3%">
+
+
+
+                                                   <form method="post" id="mytasks_sample_form" class="form-horizontal" autocomplete="off">
+
+                                                       {%csrf_token%}
+                                                   <input type="hidden" name="_token" value="AbUR8GahIyj2UPK5OjVYJYkjmJC3lklimrYuSzHV">
+                                                   <div class="row">
+
+
+                                                   <div class="col-md-6 form-group">
+                                                   <label><b>Title</b><span class="star">*</span></label>
+                                                   <input type="text" name="title" id="title" placeholder="Title" title="" class="form-control" required>
+                                                 </div>
+
+
+
+                                                       <div class="col-md-6 form-group">
+    <label><b>Project</b><span class="star">*</span></label>
+      <div class="select-wrapper">
+    <select id="project" name="project" class="form-control" required>
+      <option value="" disabled selected>Project</option>
+        {% for project in project_data %}
+            <option value="{{ project.id }}">{{ project.title }}</option>
+        {% endfor %}
+    </select>
+  </div>
+    <span style="color:red"  class="error-message" id="project-error"></span>
+    </div>
+
+
+
+
+
+                                              <div class="col-md-6 form-group">
+                                                 <label><b>Assign To</b><span class="star">*</span></label>
+                                                <input type="text" name="assign_to" id="assign_to" value="{{ my_user.username}}" placeholder="Enter username" class="form-control" required readonly>
+                                                       </div>
+
+
+                                           <div class="col-md-6 form-group">
+                                           <label><b>Start Date</b><span class="star">*</span></label>
+                                           <input type="date" name="start_date" id="start_date" title="" class="form-control" required>
+                                         </div>
+
+
+                                                       <div class="col-md-6 form-group">
+                                           <label><b>End Date</b><span class="star">*</span></label>
+                                           <input type="date" name="end_date" id="end_date" title="" class="form-control" required>
+                                         </div>
+
+
+
+  <div class="col-md-6 form-group">
+    <label><b>Source</b><span class="star">*</span></label>
+      <div class="select-wrapper">
+    <select id="source" name="source" class="form-control" required>
+      <option value="" disabled selected>Source</option>
+        {% for source in source_data %}
+            <option value="{{ source.id }}">{{ source.source }}</option>
+        {% endfor %}
+    </select>
+  </div>
+    <span style="color:red"  class="error-message" id="source-error"></span>
+    </div>
+
+
+
+
+
+
+  <div class="col-md-6 form-group">
+    <label><b>Status</b><span class="star">*</span></label>
+      <div class="select-wrapper">
+    <select id="status" name="status" class="form-control" required>
+      <option value="" disabled selected>Status</option>
+        {% for status in status_data %}
+            <option value="{{ status.id }}">{{ status.status }}</option>
+        {% endfor %}
+    </select>
+  </div>
+    <span style="color:red"  class="error-message" id="status-error"></span>
+    </div>
+
+
+
+
+
+
+
+  <div class="col-md-6 form-group">
+    <label><b>Priority</b><span class="star">*</span></label>
+      <div class="select-wrapper">
+    <select id="priority" name="priority" class="form-control" required>
+      <option value="" disabled selected>Priority</option>
+        {% for priority in priority_data %}
+            <option value="{{ priority.id }}">{{ priority.priority }}</option>
+        {% endfor %}
+    </select>
+  </div>
+    <span style="color:red"  class="error-message" id="priority-error"></span>
+    </div>
+
+
+                                                        <div class="col-md-12 form-group">
+                                           <label><b>Description</b><span class="star">*</span></label>
+                                                            <textarea name="description" id="description" rows="4" title="" class="form-control" required></textarea>
+                                         </div>
+
+
+
+
+
+
+                                                 <div class="container">
+                                                 <div class="form-group" align="center">
+                                                <div class="modal-footer">
+                                                    <a href="{%url 'task_list' %}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 10px;">Cancel</button></a>
+      <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+                                                 </div>
+                                                 </div>
+                                                 </div>
+
+
+                                                    </form>
+      </div></div></div></section></main>
+
+
+
+
+
+
+
+
+ <script>
+        $(document).ready(function() {
+            $('#project').on('change', function() {
+                var selectedProject = $(this).val();
+                if (selectedProject) {
+                    // Make an AJAX request to fetch employees for the selected project
+                    $.ajax({
+                        url: '{% url 'get_employees_for_project' %}',  // Adjust the URL
+                        type: 'GET',
+                        data: { project: selectedProject },
+                        success: function(data) {
+                            // Clear and populate the "Assign To" dropdown with employees
+                            var assignToDropdown = $('#assign_to');
+                            assignToDropdown.empty();
+                            for (var i = 0; i < data.length; i++) {
+                                assignToDropdown.append($('<option>', {
+                                    value: data[i].id,
+                                    text: data[i].username
+                                }));
+                            }
+                        }
+                    });
+                } else {
+                    // Clear the "Assign To" dropdown if no project is selected
+                    $('#assign_to').empty();
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+  {% endblock %}

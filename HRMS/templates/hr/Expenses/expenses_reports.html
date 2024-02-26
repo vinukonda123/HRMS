@@ -1,0 +1,147 @@
+
+ {%extends 'base1.html'%}
+
+{%block content%}
+
+<head>
+    <style>
+
+
+
+body {
+    font-family: 'Poppins' !important ;
+}
+
+
+table.dataTable thead th, table.dataTable tfoot th {
+    font-weight: 600 !important;
+}
+
+
+
+        .nav-tabs li a {
+            padding: 0.75rem 1.25rem;
+        }
+
+        .nav-tabs.vertical li {
+            border: 1px solid #ddd;
+            display: block;
+            width: 100%
+        }
+
+.star{
+  color:red;
+}
+
+
+
+
+#general{
+  color: orange;
+}
+
+
+.modal-backdrop{
+    --bs-backdrop-bg: #00000094;
+}
+
+
+
+
+
+
+
+
+    </style>
+
+
+
+    <link rel="stylesheet"  href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+</head>
+
+
+
+<main id="main" class="main">
+
+
+    <section class="section profile">
+
+        <div class="col-xl-12 col-lg-4">
+
+          <div class="card" style="box-shadow:20px 20px 60px whitesmoke,-20px -20px 60px whitesmoke;padding-top: 30px; padding-right: 70px; padding-bottom: 50px; padding-left: 50px;" >
+
+
+          <h3 class="pt-3 ml-3" style="color:#FF1493;padding-top:1px;font-family:math"><b>Expenses Reports</b></h3><hr>
+
+
+
+<!--Table-->
+<table id="example" class="display mt-5">
+
+  <!--Table head-->
+  <thead>
+    <tr>
+     <th style="background-color:#EDECEA;">Title</th>
+       <th style="background-color:#EDECEA;">Date</th>
+     <th style="background-color:#EDECEA;">Purpose</th>
+         <th style="background-color:#EDECEA;">Amount</th>
+         <th style="background-color:#EDECEA;">Applied Time</th>
+         <th style="background-color:#EDECEA;">Document</th>
+         <th style="background-color:#EDECEA;">Approved By</th>
+         <th style="background-color:#EDECEA;">Status</th>
+    </tr>
+  </thead>
+  <!--Table head-->
+
+  <!--Table body-->
+  <tbody>
+    {% for expenses_request in expenses_requests %}
+    <tr class="" style="font-size: 95%;">
+                <td>{{ expenses_request.title }}</td>
+                <td>{{ expenses_request.date }}</td>
+                <td>{{ expenses_request.purpose }}</td>
+                <td>{{ expenses_request.amount }}</td>
+                <td>{{ expenses_request.time }}</td>
+                <td>
+                 <a href="{{expenses_request.document.url}}" download style="text-decoration:none">{{expenses_request.document}}</a>
+
+                </td>
+
+                <td>{{ expenses_request.approved_by }}</td>
+
+
+        {% if expenses_request.status == "Approved" %}
+          <td><span class="badge bg-success">{{ expenses_request.status }}</span></td>
+
+           {% elif expenses_request.status == "Rejected" %}
+          <td><span class="badge bg-danger">{{ expenses_request.status }}</span></td>
+          {% elif expenses_request.status == "Pending" %}
+
+           <td><span class="badge bg-warning">{{ expenses_request.status }}</span></td>
+
+
+           {%endif%}
+
+            </tr>
+            {% endfor %}
+
+  </tbody>
+  <!--Table body-->
+
+
+</table>
+
+
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+ <script>
+     new DataTable('#example');
+ </script>
+
+ {%endblock%}

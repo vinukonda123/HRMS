@@ -1,0 +1,139 @@
+
+ {%extends 'base1.html'%}
+
+{%block content%}
+
+
+
+
+<head>
+
+
+
+    <link rel="stylesheet"  href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+</head>
+
+
+
+<main id="main" class="main">
+
+
+    <section class="section profile">
+
+        <div class="col-xl-12 col-lg-4">
+
+          <div class="card" style="box-shadow:20px 20px 60px whitesmoke,-20px -20px 60px whitesmoke;  padding-top: 50px; padding-right: 1px; padding-bottom: 50px; padding-left: 15px;" >
+
+
+
+
+
+
+
+<div class="col-xl-12">
+    <div class="tab-content" id="v-pills-tabContent">
+
+
+
+                         <div class="tab-pane fade show active" id="v-pills-my_tasks" role="tabpanel" aria-labelledby="v-pills-my_tasks-tab" tabindex="0" style=" padding-top: 10px; padding-right: 27px; padding-bottom: 50px; padding-left: 15px;">
+
+                        <h3 style="color:green ;font-family:math;padding-left:5px"><b>My Tasks</b></h3>
+                         <hr>
+
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3 col-xxl-3">
+                  <div class="card info-card sales-card">
+                     <div class="card-body" style="height:100px">
+                        <a href="{%url 'task_list' %}" style="text-decoration: none;">
+                            <div class="widget-content">
+                           <div style="text-transform: uppercase; font-size: 16px; font-weight: bold;padding-top:36px">
+                               <span style="margin-right: 59%;font-family:Poppins;font-weight:600">TASKS</span><span style="color:red">{{Total_Tasks}}</span>
+
+
+                           </div></div>
+                        </a>
+
+                     </div>
+                  </div>
+               </div>
+
+            <!-- Sales Card -->
+           <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3 col-xxl-3">
+                  <div class="card info-card sales-card">
+                     <div class="card-body" style="height:100px">
+                        <a href="{%url 'my_tasks_todo' %}" style="text-decoration: none;">
+                            <div class="widget-content">
+                           <div style="text-transform: uppercase; font-size: 16px; font-weight: bold;padding-top:36px">
+                               <span style="margin-right: 59%;font-family:Poppins;font-weight:600">TO DO</span><span style="color:red">{{Todo_count1}}</span>
+
+
+                           </div></div>
+                        </a>
+
+                     </div>
+                  </div>
+               </div>
+
+
+
+
+
+
+    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3 col-xxl-3">
+                  <div class="card info-card sales-card">
+                     <div class="card-body" style="height:100px">
+                        <a href="{%url 'my_tasks_inprogress' %}" style="text-decoration: none;">
+                            <div class="widget-content">
+                           <div style="text-transform: uppercase; font-size: 16px; font-weight: bold;padding-top:36px">
+                               <span style="margin-right: 39%;font-family:Poppins;font-weight:600">In Progress</span><span style="color:red;">{{In_progress_count1}}</span>
+                           </div>
+                            </div>
+                        </a>
+
+                     </div>
+                  </div>
+               </div>
+
+
+           <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3 col-xxl-3">
+                  <div class="card info-card sales-card">
+                     <div class="card-body" style="height:100px">
+                        <a href="{%url 'my_tasks_completed' %}" style="text-decoration: none;">
+                            <div class="widget-content">
+                           <div style="text-transform: uppercase; font-size: 16px; font-weight: bold;padding-top:36px">
+                               <span style="margin-right: 39%;font-family:Poppins;font-weight:600">Completed</span><span style="color:red">{{completed_count1}}</span>
+
+
+                           </div></div>
+                        </a>
+
+                     </div>
+                  </div>
+               </div>
+
+             </div>
+
+
+                                               </div>
+
+
+
+
+
+
+
+                       </div></div>
+          </div>
+        </div>
+    </section>
+</main>
+
+
+
+
+
+
+{%endblock%}

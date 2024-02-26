@@ -1,0 +1,221 @@
+
+{%extends 'base1.html'%}
+{%load static%}
+{%block content%}
+<head>
+
+<!-- ... Your previous HTML code ... -->
+
+<style>
+  /* Add spacing between form groups (rows) */
+  .form-group {
+    margin-bottom: 20px; /* Adjust the value to control the spacing */
+  }
+</style>
+
+<style>
+
+body {
+    font-family: 'Poppins' !important ;
+}
+
+
+
+b, strong {
+    font-weight: 600 !important;
+}
+  .fc-toolbar h2 {
+    color: #0F0BF6;
+    font-size:30px;
+  }
+</style>
+<style>
+/* Define CSS styles for grid lines */
+.fc-view {
+  border: 1px solid #ddd; /* Add borders to the calendar view */
+}
+
+/* Define CSS styles for the block box */
+.event-block {
+  border: 2px solid #333; /* Add a border to the block box */
+  background-color: blue; /* Background color for the block box */
+  position: absolute;
+  z-index: 10000;
+}
+
+/* Style for long event titles */
+.fc-event-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Show the block box on hover */
+.fc-event:hover .event-block {
+  display: block;
+}
+.festival-box {
+  background-color: #BBE6B0; /* Set the background color for festival boxes */
+  padding: 5px;
+  margin: 2px;
+  border: 1px solid #ddd;
+  color: white; /* Text color for festival boxes */
+  font-weight: bold; /* Bold text for festival boxes */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Show ellipsis (...) for long titles */
+  position: relative; /* Use relative positioning */
+  z-index: ; /* Ensure festival boxes are above the calendar cells */
+}
+
+.form-control{
+margin-top:10px;
+}
+.star{
+color:red;
+}
+</style>
+<style>
+  #calendar {
+    font-size: 15px; /* Adjust font size as needed */
+  }
+
+  .fc-header-toolbar {
+    padding: 0px; /* Adjust padding as needed */
+  }
+</style>
+
+
+
+
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+<link rel="stylesheet"  href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+
+
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+
+<!-- Add Bootstrap CSS link -->
+
+
+<!-- Add Bootstrap JS scripts (jQuery and Popper.js are required) -->
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<main id="main" class="main">
+
+    <section class="section profile">
+
+        <div class="col-xl-12 col-lg-4">
+
+          <div class="card" style="box-shadow:20px 20px 60px whitesmoke,-20px -20px 60px whitesmoke" >
+
+
+              <h1 class="modal-title fs-5" id="exampleModalLabel_upd" style="padding-top:2%;padding-left:2%;color:blue;font-family:math"><b>Add Expenses</b></h1>
+              <hr style="margin-left:2%;margin-right:2%">
+      <div class="modal-body" style="padding-left:3%;padding-right:3%">
+
+
+
+                          <form method="post"  class="form-horizontal" autocomplete="off">
+{%csrf_token%}
+
+                                                  <div class="row">
+
+
+                                                   <div class="col-md-6 form-group">
+                                                   <label><b>Title</b><span class="star">*</span></label>
+                                                   <input type="text" name="title" id="title"  placeholder="Title" title="" required="" class="form-control">
+                                                 </div>
+
+
+                                                 <div class="col-md-6 form-group">
+                                                 <label><b>Date</b><span class="star">*</span></label>
+                                                 <input type="date" name="date" id="date" placeholder="" title="" required="" class="form-control">
+                                               </div>
+
+                                                      <div class="col-md-6 form-group">
+                                                 <label><b>Purpose</b><span class="star">*</span></label>
+                                                 <input type="text" name="purpose" id="purpose" placeholder="Purpose" title="" required="" class="form-control">
+                                               </div>
+
+                                                      <div class="col-md-6 form-group">
+                                                 <label><b>Amount</b><span class="star">*</span></label>
+                                                 <input type="text" name="amount" id="amount" placeholder="Amount" title="Please enter a valid amount" required="" class="form-control" pattern="^\d+(\.\d{1,2})?$">
+                                               </div>
+
+
+
+
+                                                      <div class="col-md-6 form-group">
+    <label><b>Time</b><span class="star">*</span></label>
+    <input type="time" name="time" id="time" placeholder="Time" title="" class="form-control" readonly disabled>
+</div>
+
+<script>
+    // Get the current time and format it as HH:mm
+    function getCurrentTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
+    }
+
+    // Set the current time to the 'Time' input field
+    document.getElementById('time').value = getCurrentTime();
+</script>
+
+                                                      <div class="col-md-6 form-group">
+                                                 <label><b>Document</b><span class="star">*</span></label>
+                                                 <input type="file" name="document" id="document" title="" required="" class="form-control">
+                                               </div>
+
+
+                                           <div class="col-md-12 form-group">
+                                           <label><b>Reason</b></label>
+                                               <textarea rows="" name="reason" id="reason"  placeholder="Reason" title="" class="form-control"></textarea>
+                                         </div>
+
+
+
+
+
+                                                 <div class="container">
+                                                 <div class="form-group" align="center">
+                                                <div class="modal-footer">
+                                                    <a href="{%url 'list_expenses' %}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 10px;">Cancel</button></a>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+                                                 </div>
+                                                 </div>
+                                                 </div>
+
+
+                                                    </form>
+          </div></div></section></main>
+</body>
+
+</html>
+  {% endblock %}

@@ -1,0 +1,169 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ {%extends 'base1.html'%}
+
+{%block content%}
+{% include 'hr/emails/sideber.html' %}
+
+
+
+
+
+
+
+
+  <head>
+
+        <title>samrt hrms</title>
+<link rel="stylesheet"  href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+   <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+   <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+             <style>
+
+body {
+    font-family: 'Poppins' !important ;
+}
+
+
+
+b, strong {
+    font-weight: 600 !important;
+}
+
+
+.form-control{
+margin-top:10px;
+}
+
+.star{
+color:red;
+}
+</style>
+
+<style>
+  /* Add spacing between form groups (rows) */
+  .form-group {
+    margin-bottom: 15px; /* Adjust the value to control the spacing */
+  }
+</style>
+
+   <style>
+      .btn-group button {
+      background-color: #d3e3fd; /* Green background */
+      border: 1px solid white; /* Green border */
+      color: black; /* White text */
+      padding: 20px 24px; /* Some padding */
+      cursor: pointer; /* Pointer/hand icon */
+      width: 20%; /* Set a width if needed */
+      display: block; /* Make the buttons appear below each other */
+      border-radius:15px;
+      font-size:17px;
+      font-weight:600;
+      }
+      .btn-group button:not(:last-child) {
+      border-bottom: none; /* Prevent double borders */
+      }
+      /* Add a background color on hover */
+      .btn-group button:hover {
+      background-color: #d3e3fd;
+      }
+   </style>
+   <style>
+
+      td{
+      color:black;
+      font-weight:bold;
+      padding:15px;
+      border:1px solid #b7202054;
+      }
+   </style>
+
+    </head>
+
+
+
+<main id="main" class="main">
+    <section class="section profile">
+        <div class="col-xl-12 col-lg-4">
+            <div class="card" style="box-shadow: 20px 20px 60px whitesmoke, -20px -20px 60px whitesmoke; padding-top: 50px; padding-right: 1px; padding-bottom: 50px; padding-left: 50px;">
+
+    <div class="btn-group flex-column">
+    <div class="row">
+        <div class="col-sm-3">
+               <a href="{%url 'compose_employee' %}" style="text-decoration:none"><button class="" style="width:79%;height:10%;padding-top:4%;">Compose()</button></a>
+             <a href="{%url 'receive_emails_employee' %}" style="text-decoration:none"><button class="" style="width:79%;height:10%;padding-top:4%;">Inbox({{received_emails_count}})</button></a>
+   <a href="{%url 'sent_emails_employee' %}" style="text-decoration:none"><button class="" style="width:79%;height:10%;padding-top:4%;">Sent<blink>({{sent_emails_count}})</blink></button></a>
+      <a href="{%url 'delete_emails_employee' %}" style="text-decoration:none"> <button class="" style="width:79%;height:10%;padding-top:4%;">Delete({{delete_emails_count}})</button></a>
+  </div>
+        <div class="col-sm-9" style="margin-left:-4%">
+
+
+
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-Assets" role="tabpanel" aria-labelledby="v-pills-Assets-tab" tabindex="0" style="padding-top: 10px; padding-right: 40px; padding-bottom: 20px; padding-left: 2px;">
+                            <h3 style="color:#1E7CCF;font-family:math"><b>New Email</b></h3>
+                            <hr>
+
+
+                                            <form method="post" id="send_mail_sample_form" class="form-horizontal" autocomplete="off">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="_token" value="AbUR8GahIyj2UPK5OjVYJYkjmJC3lklimrYuSzHV">
+                                                <div class="row">
+                                                    <div class="col-md-12 form-group">
+                                                        <div class="select-wrapper">
+                                                            <label><b>Recipients List</b></label>
+                                                            <select id="recipients" name="recipients[]" class="form-control" multiple>
+                                                                <option value="" disabled selected>Recipients List</option>
+                                                                {% for user in user_list %}
+                                                                    <option value="{{ user.id }}">{{ user.email }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        <span style="color:red" class="error-message" id="country_assets_upd-error"></span>
+                                                    </div>
+                                                    <div class="col-md-12 form-group">
+                                                        <label><strong>Subject Title</strong></label>
+                                                        <input type="text" name="subject_title" id="subject_title" placeholder="Subject Title" required="" class="form-control">
+                                                    </div>
+                                                    <div class="col-md-12 form-group">
+                                                        <label><b>Message</b></label><br>
+                                                    </div>
+                                                    <div class="col-md-12 form-group">
+                                                        <textarea id="message" name="message" rows="3" cols="102" style="width:100%" class=""></textarea>
+                                                    </div>
+
+                                                </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                             <input type="submit" name="action_button" id="assets_action_button" class="btn btn-success" value="Send" style="margin-right:1%">
+                                            <input type="button" class="btn btn-danger" value="cancel" style="margin-right:5%"></input>
+                                        </div>
+                        </form>
+
+    </div>
+
+
+</div>
+
+
+
+
+            </div>
+        </div>
+    </section>
+</main>
+ {%endblock%}

@@ -1,0 +1,103 @@
+
+ {%extends 'base1.html'%}
+
+{%block content%}
+
+
+
+
+
+
+<head>
+
+
+
+    <link rel="stylesheet"  href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+</head>
+
+
+
+<main id="main" class="main">
+
+
+    <section class="section profile">
+
+        <div class="col-xl-12 col-lg-4">
+
+          <div class="card" style="box-shadow:20px 20px 60px whitesmoke,-20px -20px 60px whitesmoke; height:800px; padding-top: 50px; padding-right: 70px; padding-bottom: 50px; padding-left: 50px;" >
+
+
+
+              <h3 class="pt-3 ml-3" style="color:#FF1493;padding-top:5pxfont-family:math"><b>Completed Tasks</b></h3><hr>
+
+
+
+             <table id="tasks_completed" class="display mt-5">
+                <thead>
+                  <tr>
+                                           <th style="background-color:#EDECEA;">S.No</th>
+                                           <th style="background-color:#EDECEA;">Title</th>
+                                           <th style="background-color:#EDECEA;">Project</th>
+                                           <th style="background-color:#EDECEA;">Start Date</th>
+                                           <th style="background-color:#EDECEA;">Deadline</th>
+                                           <th style="background-color:#EDECEA;">Priority</th>
+                                           <th style="background-color:#EDECEA;">Status</th>
+                                           <th style="background-color:#EDECEA;">Source</th>
+                                           </tr>
+                </thead>
+                <tbody>
+                      {%for mytasks in data48%}
+
+
+
+                          <tr>
+                               <td>{{ forloop.counter }}</td>
+                          <td>{{mytasks.title}}
+
+                          </td>
+                           <td>{{mytasks.project}}
+
+                          </td>
+                              <td>{{mytasks.start_date}}
+
+                          </td>
+                              <td>{{mytasks.end_date}}
+
+                          </td>
+                              <td>{{mytasks.priority.priority}}
+
+                          </td>
+                              <td>{{mytasks.status.status}}
+
+                          </td>
+                              <td>{{mytasks.source.source}}
+
+                          </td>
+
+
+
+                      </tr>
+                      {%endfor%}
+                   </tbody>
+              </table>
+            </div>
+          </div>
+
+    </section>
+</main>
+
+
+
+
+
+ <script>
+     new DataTable('#tasks_completed');
+ </script>
+
+
+
+
+
+{%endblock%}

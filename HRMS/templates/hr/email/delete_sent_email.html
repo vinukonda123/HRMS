@@ -1,0 +1,115 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ {%extends 'hr/base.html'%}
+
+{%block content%}
+{% include 'hr/email/sideber.html' %}
+
+
+
+
+
+
+
+
+  <head>
+
+        <title>samrt hrms</title>
+        <link rel="stylesheet"  href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+
+     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+
+<!-- Add Bootstrap CSS link -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+<!-- Add Bootstrap JS scripts (jQuery and Popper.js are required) -->
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+
+
+
+
+
+             <style>
+.btn-group button {
+  background-color: slateblue; /* Green background */
+  border: 1px solid white; /* Green border */
+  color: white; /* White text */
+  padding: 20px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  width: 20%; /* Set a width if needed */
+  display: block; /* Make the buttons appear below each other */
+}
+
+.btn-group button:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+</style>
+
+
+    </head>
+
+
+
+<main id="main" class="main">
+    <section class="section profile">
+        <div class="col-xl-12 col-lg-4">
+            <div class="card" style="box-shadow: 20px 20px 60px whitesmoke, -20px -20px 60px whitesmoke; padding-top: 50px; padding-right: 1px; padding-bottom: 50px; padding-left: 50px;">
+
+
+
+
+
+    <div class="btn-group flex-column">
+    <div class="row">
+        <div class="col-sm-3">
+             <a href="{%url 'compose' %}"><button class="bg-dark" style="width:100%">Compose()</button></a>
+         <a href="{%url 'receive_emails' %}"><button class="bg-primary" style="width:100%">Inbox()</button></a>
+   <a href="{%url 'sent_emails' %}"><button class="bg-success" style="width:100%">Sent<blink>({{sent_emails_count}})</blink></button></a>
+      <a href="{%url 'delete_emails' %}"> <button class="bg-danger" style="width:100%">Delete()</button></a>
+        </div>
+        <div class="col-sm-8"><form method="post">
+            {%csrf_token%}
+
+            <h4>Are you sure you want to delete this email?</h4><br>
+ <input type="submit" name="action_button" id="assets_action_button" class="btn btn-success" value="Delete">
+            <a href="{% url 'sent_emails'%}" ><input type="button" class="btn btn-danger" value="cancel"></input></a>
+</form></div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+            </div>
+        </div>
+    </section>
+</main>
+ {%endblock%}

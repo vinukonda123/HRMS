@@ -1,0 +1,192 @@
+{%extends 'base1.html'%}
+{%block content%}
+<head>
+   <link rel="stylesheet"  href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+   <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+   <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+</head>
+<title>Leave Request</title>
+<style>
+
+body {
+    font-family: 'Poppins' !important ;
+}
+
+
+
+b, strong {
+    font-weight: 600 !important;
+}
+</style>
+<body>
+   <main id="main" class="main">
+      <section class="section profile">
+         <div class="col-xl-12">
+            <div class="card" style="padding-top: 30px; padding-right: 10px; padding-bottom: 50px; padding-left: 10px;">
+               <h3 class="ml-3" style="margin-left:15px;color:#FF1493;padding-top:15px;font-family:math"><b>Apply Permission</b></h3>
+               <hr>
+               <form method="post"  enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="row">
+                     <div class="col-sm-6">
+                        <div class="form-group mt-2" style="margin-left:25px;">
+                           <label><b>
+                           Permission Category:</b><span class="star" style="color:red">*</span>
+                           </label>
+                           <select id="permissioncategory" class="form-select w-75 mt-2" aria-label="Default select example" name="category" required>
+                              <option  selected="selected" value="" disabled>Permission Category</option>
+                              <option value="Early Login">Early Login</option>
+                              <option value="Late Login">Late Login</option>
+                              <option value="Early Logout">Early Logout</option>
+                              <option value="WFH"> WFH </option>
+                           </select>
+                           <div class="form-group mt-2" style="margin-left:2px;">
+                              <label for="enddate"><b>
+                              EndDate:</b><span class="star" style="color:red">*</span>
+                              </label>
+                              <input type="date" name="enddate" id ="enddate" value="" class="form-control w-75 mt-2" onchange="getDays()" required>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-sm-6">
+                        <div class="form-group" style="margin-left:2px;">
+                           <label for="startdate"><b>
+                           StartDate:</b><span class="star" style="color:red">*</span>
+                           </label>
+                           <input type="date" name="startdate" id="startdate" value="{{ user.StartDate }}" class="form-control w-75 mt-2" required>
+                        </div>
+                        <div class="form-group mt-2" style="margin-left:2px;display: none;" id ="choosetime" >
+                           <label><b>Choose Time:</b><span class="star" style="color:red">*</span></label>
+                           <input type="time" name="choose_time" id="choose_time" class="form-control w-75 mt-2" >
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-xs-12">
+                        <div class="form-group mt-2" style="margin-left: 24px;
+                           margin-right: -198px">
+                           <label for="reason"><b>
+                           Reason:</b><span class="star" style="color:red">*</span>
+                           </label>
+                           <textarea type="text"
+                              name="reason"
+                              id="reason"
+                              value="{{ user.reason }}" rows="4"
+                              class="form-control w-75 mt-2"></textarea>
+                        </div>
+                        <div class="form-group mt-2" style="margin-left:2px;display: none;" id="location_v">
+                           <label for="location"><b>
+                           Enter Location:</b><span class="star" style="color:red">*</span>
+                           </label>
+                           <input type="text"
+                              name="location"
+                              id="location"
+                              value=""
+                              class="form-control w-75 mt-2">
+                        </div>
+                     </div>
+                  </div>
+                  <center><button type="submit" class="btn btn-primary btn-lg text-center mt-3 ml-5" style="margin-left:61%;">Apply Permission</button></center>
+            </div>
+            </form>
+         </div>
+         </div>
+      </section>
+   </main>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script>
+      $("#permissioncategory").change(function (e) {
+      if ($(this).val() == "Early Login") {
+          $("#location_v").hide();
+          $("#choosetime").show();
+
+      }
+
+      else if ($(this).val() == "Late Login"){
+           $("#location_v").hide();
+           $("#choosetime").show();
+
+      }
+
+
+       else if ($(this).val() == "Early Logout") {
+          $("#location_v").hide();
+          $("#choosetime").show();
+
+      }
+
+
+        else if ($(this).val() == "Late Logout") {
+          $("#location_v").hide();
+          $("#choosetime").show();
+      }
+       else if ($(this).val() == "WFH") {
+
+          $("#choosetime").hide();
+
+      }
+      });
+   </script>
+   <script>
+      $(document).ready(function() {
+        function setMinimumDate() {
+          var selectedCategory = $("#permissioncategory").val();
+          var currentDate = new Date();
+          var minDate = currentDate.toISOString().split('T')[0];
+
+          if (selectedCategory === "Early Login") {
+            $("#startdate").attr("min", minDate);
+            $("#enddate").attr("min", minDate);
+            currentDate.setDate(currentDate.getDate());
+            var maxDate = currentDate.toISOString().split('T')[0];
+            $("#startdate").attr("max", maxDate);
+            $("#enddate").attr("max", maxDate);
+
+          } else if (selectedCategory === "Late Login") {
+            $("#startdate").attr("min", minDate);
+            $("#enddate").attr("min", minDate);
+            currentDate.setDate(currentDate.getDate());
+            var maxDate = currentDate.toISOString().split('T')[0];
+            $("#startdate").attr("max", maxDate);
+            $("#enddate").attr("max", maxDate);
+
+
+             } else if (selectedCategory === "Early Logout") {
+            $("#startdate").attr("min", minDate);
+            $("#enddate").attr("min", minDate);
+            currentDate.setDate(currentDate.getDate());
+            var maxDate = currentDate.toISOString().split('T')[0];
+            $("#startdate").attr("max", maxDate);
+            $("#enddate").attr("max", maxDate);
+
+
+            } else if (selectedCategory === "WFH") {
+            $("#startdate").attr("min", minDate);
+            $("#enddate").attr("min", minDate);
+            currentDate.setDate(currentDate.getDate()+2);
+            var maxDate = currentDate.toISOString().split('T')[0];
+            $("#startdate").attr("max", maxDate);
+            $("#enddate").attr("max", maxDate);
+
+
+
+          } else {
+            $("#startdate").removeAttr("min");
+            $("#startdate").removeAttr("max");
+            $("#enddate").removeAttr("min");
+            $("#enddate").removeAttr("max");
+          }
+        }
+
+        // Handle change event of leave category dropdown
+        $("#permissioncategory").change(function() {
+          setMinimumDate();
+        });
+
+        // Initialize the date picker
+        setMinimumDate();
+      });
+   </script>
+
+</body>
+{%endblock%}

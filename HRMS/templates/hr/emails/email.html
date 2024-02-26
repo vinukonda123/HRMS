@@ -1,0 +1,192 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ {%extends 'base1.html'%}
+
+{%block content%}
+{% include 'hr/emails/sideber.html' %}
+
+
+
+
+
+
+
+
+  <head>
+
+        <link rel="stylesheet"  href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+   <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+   <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+
+
+
+             <style>
+.btn-group button {
+  background-color: #d3e3fd; /* Green background */
+  border: 1px solid white; /* Green border */
+  color: black; /* White text */
+  padding: 20px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  width: 20%; /* Set a width if needed */
+  display: block; /* Make the buttons appear below each other */
+   border-radius:15px;
+  font-size:17px;
+  font-weight:600;
+}
+
+body {
+    font-family: 'Poppins' !important ;
+}
+
+
+
+b, strong {
+    font-weight: 600 !important;
+}
+
+.btn-group button:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #d3e3fd;
+}
+</style>
+<style>
+    table{
+    border:1px solid black;
+    }
+    td{
+    color:black;
+    font-weight:400;
+padding:15px;
+    border:1px solid #b7202054;
+    }
+</style>
+
+    </head>
+
+
+
+<main id="main" class="main">
+    <section class="section profile">
+        <div class="col-xl-12 col-lg-4">
+            <div class="card" style="box-shadow: 20px 20px 60px whitesmoke, -20px -20px 60px whitesmoke; padding-top: 50px; padding-right: 1px; padding-bottom: 50px; padding-left: 50px;">
+
+
+
+
+
+       <div class="btn-group flex-column">
+    <div class="row">
+        <div class="col-sm-3">
+             <a href="{%url 'compose_employee' %}" style="text-decoration:none"><button class="" style="width:79%;height:23%;padding-top:4%;">Compose()</button></a>
+             <a href="{%url 'receive_emails_employee' %}" style="text-decoration:none"><button class="" style="width:79%;height:23%;padding-top:4%;">Inbox({{received_emails_count}})</button></a>
+   <a href="{%url 'sent_emails_employee' %}" style="text-decoration:none"><button class="" style="width:79%;height:23%;padding-top:4%;">Sent<blink>({{sent_emails_count}})</blink></button></a>
+      <a href="{%url 'delete_emails_employee' %}" style="text-decoration:none"> <button class="" style="width:79%;height:23%;padding-top:4%;">Delete({{delete_emails_count}})</button></a>
+
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 col-xxl-9" style="margin-left:-4%">
+            <h4 style="font-family:math">Sent emails</h4>
+
+
+      <table id="email-table" class="table">
+
+                                           <thead>
+                                           <tr>
+                                           <th style="background-color:#EDECEA;">send to</th>
+                                           <th style="background-color:#EDECEA;">subject</th>
+                                                <th style="background-color:#EDECEA;">message</th>
+                                                <th style="background-color:#EDECEA;">Time</th>
+
+
+                                           </thead>
+
+<tbody>
+    {%for i in email_details %}
+
+<tr style="width:100%"> <td>
+           {% for receive in  i.recipients %}
+    {%if receive.username == user.username%}{%else%}
+          <a href="{%url 'receive_email_details_employee' i.id %}" style="text-decoration:none"><b>{{ receive.username|upper }},</b></a>
+           {% endif %}
+        {% endfor %}</td>
+
+
+             <td>{{i.subject|slice:'0:8'}}...</td>
+                 <td>{{i.message|slice:'0:8'}}...</td>
+              <td >{{i.timestamp|date:'d-m-Y H:i'}}..</td>
+
+
+
+</tr>
+
+
+
+
+                {%endfor%}</tbody>
+
+
+
+</table>
+<div class="pagination">
+    <ul class="pagination">
+        {% if email_details.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ email_details.previous_page_number }}">previous</a></li>
+        {% endif %}
+
+        {% for i in email_details.paginator.page_range %}
+            <li class="page-item {% if email_details.number == i %}active{% endif %}">
+                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+            </li>
+        {% endfor %}
+
+        {% if email_details.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ email_details.next_page_number }}">next</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ email_details.paginator.num_pages }}">&raquo; last</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+
+        </div>
+
+
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+            </div>
+        </div>
+    </section>
+</main>
+
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+ <script>
+
+ </script>
+
+
+ {%endblock%}

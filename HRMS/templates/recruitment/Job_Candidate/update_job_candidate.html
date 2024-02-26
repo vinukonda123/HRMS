@@ -1,0 +1,289 @@
+
+{%extends 'hr/base.html'%}
+{%load static%}
+{%block content%}
+<head>
+
+<!-- ... Your previous HTML code ... -->
+
+
+<style>
+/* Style the custom select container */
+.custom-select {
+  position: relative;
+}
+
+/* Style the select wrapper to create a custom dropdown */
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+
+
+
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Style the select element to make it transparent and positioned over the custom dropdown */
+.custom-select select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* Make the select element transparent */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Style the custom dropdown arrow */
+.select-wrapper::after {
+  content: '\25BC'; /* Unicode character for a down arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 8px;
+}
+
+/* Style the custom dropdown when it's focused or hovered */
+.select-wrapper:hover,
+.select-wrapper:focus {
+  border-color: #007bff; /* Change border color on hover or focus */
+}
+
+
+
+</style>
+
+<style>
+  /* Add spacing between form groups (rows) */
+  .form-group {
+    margin-bottom: 20px; /* Adjust the value to control the spacing */
+  }
+</style>
+
+<style>
+
+body {
+    font-family: 'Poppins' !important ;
+}
+
+
+
+b, strong {
+    font-weight: 600 !important;
+}
+
+  .fc-toolbar h2 {
+    color: #0F0BF6;
+    font-size:30px;
+  }
+</style>
+<style>
+/* Define CSS styles for grid lines */
+.fc-view {
+  border: 1px solid #ddd; /* Add borders to the calendar view */
+}
+
+/* Define CSS styles for the block box */
+.event-block {
+  border: 2px solid #333; /* Add a border to the block box */
+  background-color: blue; /* Background color for the block box */
+  position: absolute;
+  z-index: 10000;
+}
+
+/* Style for long event titles */
+.fc-event-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Show the block box on hover */
+.fc-event:hover .event-block {
+  display: block;
+}
+.festival-box {
+  background-color: #BBE6B0; /* Set the background color for festival boxes */
+  padding: 5px;
+  margin: 2px;
+  border: 1px solid #ddd;
+  color: white; /* Text color for festival boxes */
+  font-weight: bold; /* Bold text for festival boxes */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Show ellipsis (...) for long titles */
+  position: relative; /* Use relative positioning */
+  z-index: ; /* Ensure festival boxes are above the calendar cells */
+}
+
+.form-control{
+margin-top:10px;
+}
+.star{
+color:red;
+}
+</style>
+<style>
+  #calendar {
+    font-size: 15px; /* Adjust font size as needed */
+  }
+
+  .fc-header-toolbar {
+    padding: 0px; /* Adjust padding as needed */
+  }
+</style>
+
+
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+<link rel="stylesheet"  href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+
+
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+
+<!-- Add Bootstrap CSS link -->
+
+
+<!-- Add Bootstrap JS scripts (jQuery and Popper.js are required) -->
+
+
+
+
+
+
+
+
+
+
+
+
+           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</head>
+
+<main id="main" class="main">
+
+    <section class="section profile">
+
+        <div class="col-xl-12 col-lg-4">
+
+          <div class="card" style="box-shadow:20px 20px 60px whitesmoke,-20px -20px 60px whitesmoke" >
+
+
+              <h1 class="modal-title fs-5" id="exampleModalLabel_upd" style="padding-top:2%;padding-left:2%;color:blue;font-family:math"><b>Job Candidate Update</b></h1>
+              <hr style="margin-left:2%;margin-right:2%">
+      <div class="modal-body" style="padding-left:3%;padding-right:3%">
+
+
+                          <form method="post" id="" class="form-horizontal" autocomplete="off" enctype="multipart/form-data">
+{%csrf_token%}
+
+                                                  <div class="row">
+
+
+
+                                                      <div class="col-md-6 form-group">
+    <label><b>Job Title</b><span class="star">*</span></label>
+    <div class="select-wrapper">
+    <select id="job_title_upd" name="job_title" class="form-control" required>
+      <option value="" disabled selected>Job title</option>
+        {% for i6 in data37 %}
+        <option value="{{ i6.id }}" {% if job_candidate.job_title.job_title == i6.job_title %}selected="selected"{% endif %}>{{ i6.job_title }}</option>
+
+
+        {% endfor %}
+    </select>
+    </div>
+    <span style="color:red"  class="error-message" id="job_title_upd-error"></span>
+    </div>
+
+                                               <div class="col-md-6 form-group">
+                                                 <label><b>Candidate Name</b><span class="star">*</span></label>
+                                                 <input type="text" name="candidate_name" id="candidate_name_upd" value="{{job_candidate.candidate_name}}" placeholder="Candidate Name" title="Alphabetic Characters" required="" class="form-control" pattern="[A-Za-z ]+">
+                                               </div>
+
+
+                                                       <div class="col-md-6 form-group">
+                                                 <label><b>Candidate Email</b><span class="star">*</span></label>
+                                                 <input type="email" name="candidate_email" id="candidate_email_upd" value="{{job_candidate.candidate_email}}" placeholder="Candidate Email" title="" required="" class="form-control" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+                                               </div>
+
+
+
+
+
+
+                                                 <div class="col-md-6 form-group">
+    <label><b>Resume</b><span class="star">*</span></label>
+        <input type="file" name="resume" id="resume_upd" class="form-control">
+     <a href="" target="_blank" style="text-decoration:none">{{ job_candidate.resume.name }}</a>
+
+
+
+
+    <span id="stored_job_candidate_document_upd"></span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                 <div class="col-md-6 form-group">
+                                                 <label><b>Experience</b></label>
+                                                 <input type="text" name="experience" id="experience" value="{{job_candidate.experience}}" placeholder="Experience" title="" class="form-control" required>
+                                               </div>
+
+
+
+                                                        <div class="col-md-6 form-group">
+                                                 <label><b>Applied Date</b><span class="star">*</span></label>
+                                                 <input type="date" name="applied_date" id="applied_date_upd" value="{{job_candidate.apply_date|date:'Y-m-d'}}" placeholder="Applied Date" title="" required="" class="form-control">
+                                               </div>
+
+
+
+
+
+
+
+
+
+
+                                                 <div class="container">
+                                                 <div class="form-group" align="center">
+                                                <div class="modal-footer">
+                                                    <a href="{%url 'list_job_candidate' %}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 10px;">Cancel</button></a>
+      <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+                                                 </div>
+                                                 </div>
+                                                 </div>
+
+
+                                                    </form>
+      </div></div></div></section></main>
+</body>
+
+</html>
+  {% endblock %}

@@ -1,0 +1,758 @@
+{%extends 'hr/base.html'%}
+{%block content%}
+<head>
+   <title>samrt hrms</title>
+   <link rel="stylesheet"  href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+   <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+   <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+   <!-- Add Bootstrap CSS link -->
+   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+   <!-- Add Bootstrap JS scripts (jQuery and Popper.js are required) -->
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+   <style>
+      .nav-tabs li a {
+      padding: 0.75rem 1.25rem;
+      }
+      .nav-tabs.vertical li {
+      border: 1px solid #ddd;
+      display: block;
+      width: 100%
+      }
+      .star{
+      color:red;
+      }
+      #general{
+      color: orange;
+      }
+      .modal-backdrop{
+      --bs-backdrop-bg: #00000094;
+      }
+
+
+
+   </style>
+    <style>
+
+    </style>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<main id="main" class="main">
+
+   {% for announcement in announcements%}
+        <tr>
+
+            <marquee style="color:green;font-size:larger;font-family:Poppins">{{announcement.description}}</marquee>
+		</tr>
+        {%endfor%}
+              <p></p>
+
+   <!-- End Page Title -->
+   <section class="section dashboard">
+      <div class="row">
+
+
+                              <h5 style="color:green;padding-left:19px"><b>EMPLOYEE</b></h5>
+         <hr style="margin-left:17px;width:95%">
+
+         <!-- Left side columns -->
+         <div class="col-md-12 col-md-8">
+            <div class="row">
+               <!-- Sales Card -->
+
+
+
+
+
+
+
+<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'total_employees' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">TOTAL EMPLOYEES</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                        <h6 style="color: #d9534f; font-weight: bold;">{{total_employee_count}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+
+<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'emp_list' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">ACTIVE EMPLOYEES</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                        <h6 style="color: #d9534f; font-weight: bold;">{{e}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+
+
+<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'present_employee' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">PRESENT EMPLOYEES</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                        <h6 style="color: #d9534f; font-weight: bold;">{{active_employee_count}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+               <!-- End Sales Card -->
+
+
+<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'absent_employee' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">ABSENT EMPLOYEES</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                        <h6 style="color: #d9534f; font-weight: bold;">{{absent_employees_count}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+               <!-- End Sales Card -->
+
+<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'employee_leave' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">EMPLOYEES ON LEAVE</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                        <h6 style="color: #d9534f; font-weight: bold;">{{employee_leave}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+               <!-- End Sales Card -->
+
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'leave_approval_pending' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">PENDING LEAVES</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-person-check-fill"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                        <h6 style="color: #d9534f; font-weight: bold;">{{s}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+               <!-- End Sales Card -->
+               <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'pending_permission' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">PENDING PERMISSIONS</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-person-check-fill"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                        <h6 style="color: #d9534f; font-weight: bold;">{{r}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+               <!-- End Sales Card -->
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'total_pending_permissions' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">TOTAL PERMISSIONS</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-person-fill-gear"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                        <h6 style="color: #d9534f; font-weight: bold;">{{total_permissions}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'birthdate' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">EMPLOYEE BIRTHDAYS</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-calendar"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                        <h6 style="color: #d9534f; font-weight: bold;">{{bdate}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+               <!-- End Sales Card -->
+                  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'hr_attendance' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">EMPLOYEE ATTENDANCE</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-person-check-fill"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+
+
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'tickets_reports_admin' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">PENDING TICKETS</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-ticket"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                        <h6 style="color: #d9534f; font-weight: bold;">{{pending_tickets}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'expenses_reports_admin' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">PENDING EXPENSES</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-cash"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                        <h6 style="color: #d9534f; font-weight: bold;">{{pending_expenses}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+
+
+
+               <div class="row">
+                  <h5 style="color:green;padding-left:19px"><b>CUSTOMER PROJECT MANAGEMENT</b></h5>
+         <hr style="margin-left:17px;width:95%">
+
+                   <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'list_tasks_hr' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">TOTAL TASKS</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-person-fill-gear"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                        <h6 style="color: #d9534f; font-weight: bold;">{{Total_Tasks}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+
+
+
+
+
+
+
+ <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'list_clients' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">CLIENTS</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-person-fill-gear"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                        <h6 style="color: #d9534f; font-weight: bold;">{{clients}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+
+
+
+
+ <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'list_project' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">PROJECTS</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-person-fill-gear"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                        <h6 style="color: #d9534f; font-weight: bold;">{{projects}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+
+ <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+    <a href="{%url 'list_job_interview' %}" style="text-decoration: none;">
+        <div class="card info-card sales-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: white; border-radius: 10px; overflow: hidden;">
+            <div class="card-body" style="padding: 15px;box-shadow:  20px 20px 60px #bebebe, ">
+                <div class="body-card">
+                    <h5 class="card-title" style="color: #555; background-color: #ECF0F1; padding: 15px; border-radius: 8px; margin-bottom: 10px;">INTERVIEWS SCHEDULE</h5>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;margin-left:6%">
+                        <i class="bi bi-person-fill-gear"></i>
+                    </div>
+                    <div class="ps-3" style="margin-left: 90px;">
+                        <h6 style="color: #d9534f; font-weight: bold;">{{interviews}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+            </div>
+         </div>
+      </div>
+</div>
+
+
+
+
+
+
+
+
+
+      <div class="">
+      <div class="chart-container">
+         <canvas id="barChart" aria-label="Total Employees Department-wise" role="img" style="display:inline-block; box-sizing: border-box;height: 300px;width: 700px;padding-left:20px;padding-right:17 px;padding-top:30px"></canvas>
+      </div></div>
+      <br><br>
+      <div class="col-md-12 col-md-8">
+         <div class="row">
+            <div class="col-md-4">
+            <div class="widget box card" style="border: solid 2.8px #8d642261;">
+                  <div class="widget-header" style="color:blue;background-color:white;position:center;padding-top: 15px; padding-bottom: 5px;">
+                     <center>
+                        <h4><b style="font-family:math">Upcoming Birthdays</b></h4>
+                     </center>
+                  </div>
+                  <div class="widget-content" style="height: 275px; background-color:white;padding-top: 5px; padding-right: 10px; padding-bottom: 5px; padding-left: 10px;">
+                     <div>
+                        <table class="table table-striped table-bordered gvBirthday" cellspacing="0" rules="all" border="1" id="cphBody_gvBirthday" style="border-collapse:collapse;">
+                           <thead class="table-primary">
+                              <tr>
+                                 <th>Profile</th>
+                                 <th>Name</th>
+                                 <th style="width:21%">Date</th>
+                              </tr>
+                           </thead>
+                           <tbody style="font-family:'Poppins';font-size:95%;">
+                              {%for birthday in birthdates %}
+                              <tr>
+                                 <td><img src="{{birthday.image.url}}" style="width:50px;height:50px"></td>
+                                 <td>{{birthday.fullname|capfirst}}</td>
+                                 <td>{{birthday.BirthDate|date:"M d" }}</td>
+                              </tr>
+                              {%endfor%}
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-4">
+            <div class="widget box card" style="border: solid 2.8px #8d642261;">
+
+
+               <div class="widget-header" style="color:blue;background-color:white;position:center;padding-top: 15px; padding-bottom: 5px;">
+                     <center>
+                        <h4><b style="font-family:math">Upcoming Holidays</b></h4>
+                     </center>
+                  </div>
+                  <div class="widget-content" style="height: 275px; background-color:white;padding-top: 5px; padding-right: 10px; padding-bottom: 5px; padding-left: 10px;">
+                     <div>
+                        <table class="table table-striped table-bordered gvHoliday" cellspacing="0" rules="all" border="1" id="cphBody_gvHoliday" style="border-collapse:collapse;">
+                           <thead class="table-primary">
+                              <tr>
+                                 <th>Name</th>
+                                 <th>Date</th>
+                              </tr>
+                           </thead>
+                           <tbody style="font-family:'Poppins';font-size:95%;">
+                              {% for holiday in holidays%}
+                              <tr>
+                                 <td>{{holiday.title}}</td>
+                                 <td>{{holiday.date|date:"d/m/Y"}}</td>
+                              </tr>
+                              {%endfor%}
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-4">
+            <div class="widget box card" style="border: solid 2.8px #8d642261;">
+                  <div class="widget-header" style="color:blue;background-color:white;position:center;padding-top: 15px; padding-bottom: 5px;">
+                     <center>
+                        <h4><b style="font-family:math">Employees By Shift</b></h4>
+                     </center>
+                     <p></p>
+                  </div>
+                  <div class="widget-content" style="height: 270px; background-color:white;padding-top: 2px; padding-right: 10px; padding-bottom: 5px; padding-left: 30px;">
+                     <canvas id="pieChart" style="max-height: 400px;"></canvas>
+                     <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                          // Function to update the pie chart with new data
+                          function updatePieChart(data) {
+                            new Chart(document.querySelector('#pieChart'), {
+                              type: 'pie',
+                              data: {
+                                labels: data.labels1,
+                                datasets: [{
+                                  label: 'Employees',
+                                  data: data.data1,
+                                  borderWidth: 2,
+                                  backgroundColor: data.colors,
+                                  hoverOffset: 4
+                                }]
+                              },
+                              options: {
+                                responsive: true,
+                              }
+                            });
+                          }
+
+                          $.ajax({
+                            url: "{% url 'shift_count' %}",
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (data) {
+                              updatePieChart(data);
+                            },
+                            error: function (error) {
+                              console.log(error);
+                            }
+                          });
+                        });
+                     </script>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <br>
+      <div class="row" style="padding-left:16px;padding-right:20px">
+         <div class="col-md-6">
+            <div class="widget box card" style="border: solid 2.8px #8d642261;">
+               <div class="widget-header" style="color:blue;background-color:white;position:center;padding-top: 15px; padding-bottom: 5px;">
+                  <center>
+                     <h4><b style="font-family:math">Upcoming Events</b></h4>
+                  </center>
+               </div>
+               <div class="widget-content" style="background-color:white;padding-top: 5px; padding-right: 10px; padding-bottom: 5px; padding-left: 10px;">
+                  <div>
+                     <table class="table table-striped table-bordered gEvents" cellspacing="0" rules="all" border="1" id="cphBody_gvEvents" style="border-collapse:collapse;">
+                        <thead class="table-primary">
+                           <tr>
+                              <th>Title</th>
+            <th>Date</th>
+
+            <th>Start Time</th>
+            <th>End Time</th>
+                           </tr>
+                        </thead>
+                        <tbody style="font-family:'Poppins';font-size:95%;">
+                           {% for event in events%}
+                           <tr>
+                              <td>{{event.event_title}}</td>
+            <td>{{event.event_date|date:"d/m/Y"}}</td>
+            <td>{{event.start_time|date:"h:i A"}}</td>
+            <td>{{event.event_time|date:"h:i A"}}</td>
+                           </tr>
+                           {%endfor%}
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+
+
+
+         <div class="col-md-6">
+            <div class="widget box card" style="border: solid 2.8px #8d642261;">
+
+               <div class="widget-header" style="color:blue;background-color:white;position:center;padding-top: 15px; padding-bottom: 5px;">
+               <div class="row">
+                  <div class="col-sm-8" style="padding-left:25%">
+                  <center>
+                     <h4><b style="font-family:math">Today Meetings</b></h4>
+                  </center>
+               </div>
+
+
+
+
+
+
+                  <div class="col-sm-4" style="padding-left:5%">
+                     <a href="{%url 'list_meetings' %}" style="text-decoration: none;">
+                           <div class="body-card">
+                              <button class="btn btn-outline-primary btn-sm"><h6>Create Meetings</h6></button>
+                           </div>
+                        </a>
+                  </div>
+                  </div>
+                  </div>
+               <div class="widget-content" style="background-color:white;padding-top: 5px; padding-right: 10px; padding-bottom: 5px; padding-left: 10px;">
+                  <div>
+                     <table class="table table-striped table-bordered gEvents" cellspacing="0" rules="all" border="1" id="cphBody_gvMeetings" style="border-collapse:collapse;">
+                        <thead class="table-primary">
+                           <tr>
+                              <th>Title</th>
+            <th>Department</th>
+
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+                           </tr>
+                        </thead>
+                        <tbody style="font-family:'Poppins';font-size:95%;">
+                           {% for meeting in meetings%}
+                           <tr>
+                              <td>{{meeting.meeting_title}}</td>
+                              <td>{{meeting.department.department}}</td>
+                              <td>{{meeting.meeting_date|date:"d/m/Y"}}</td>
+                              <td>{{meeting.meeting_time|date:"h:i A"}}</td>
+                              <td>{{meeting.end_time|date:"h:i A"}}</td>
+                           </tr>
+                           {%endfor%}
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+
+
+      </div>
+      <div class="row">
+         <div class="col-lg-9">
+            <div class="chart">
+               <canvas id="myChart" aria-label="Site statistics" role="img"></canvas>
+            </div>
+            <div class="users-table table-wrapper">
+            </div>
+         </div>
+         <div class="col-lg-3">
+            <article class="customers-wrapper">
+               <canvas id="customersChart" aria-label="Customers statistics" role="img"></canvas>
+            </article>
+         </div>
+      </div>
+   </section>
+</main>
+<!-- End #main -->
+<script>
+   $(document).ready(function() {
+     $('#calendar').fullCalendar({
+       // Custom options and settings go here
+       header: {
+         left: 'prev,next today',
+         center: 'title',
+         right: 'month,agendaWeek,agendaDay'
+       },
+       defaultView: 'month',
+       events: [
+         {
+           title: 'Event 1',
+           start: '2023-07-26'
+         },
+         {
+           title: 'Event 2',
+           start: '2023-07-28'
+         }
+       ],
+       // Use the dayRender callback to customize the appearance of each day cell
+       dayRender: function (date, cell) {
+         var day = date.day();
+         // 0 is Sunday, 6 is Saturday
+         if (day === 0 || day === 6) {
+           cell.css('background-color', '	#f9aeae');
+         }
+       }
+     });
+   });
+</script>
+<script>
+   $(document).ready(function () {
+     $.ajax({
+       url: "{% url 'role_counts' %}",
+       type: 'GET',
+       dataType: 'json',
+       success: function (data) {
+       console.log(data.labels)
+         var ctxBar = document.getElementById('barChart').getContext('2d');
+         var barChartData = {
+           labels: data.labels,  // Use the retrieved labels from Django server
+           datasets: [{
+             label: 'Total Employees',
+             backgroundColor: 'rgba(75, 192, 192, 0.2)',
+             borderColor: 'rgba(75, 192, 192, 1)',
+             borderWidth: 1,
+             data: data.data,  // Your data values
+           }]
+         };
+
+         new Chart(ctxBar, {
+           type: 'bar',
+           data: barChartData,
+           options: {
+             responsive: true,
+             scales: {
+               y: {
+                 beginAtZero: true
+               }
+             }
+           }
+         });
+       },
+       error: function (error) {
+         console.log(error);
+       }
+     });
+   });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{%endblock%}

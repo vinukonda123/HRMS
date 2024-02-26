@@ -1,0 +1,300 @@
+{%extends 'base1.html'%}
+{%block content%}
+<head>
+   <link rel="stylesheet"  href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+   <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+   <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+</head>
+<style>
+
+body {
+    font-family: 'Poppins' !important ;
+}
+
+
+
+b, strong {
+    font-weight: 600 !important;
+}
+</style>
+<body>
+   <main id="main" class="main">
+      <section class="section profile">
+         <div class="col-xl-12">
+            <div class="card" style="padding-top: 10px; padding-right: 10px; padding-bottom: 50px; padding-left: 10px;">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card info-card revenue-card" style="  margin-right: 6%;margin-left: 6%;" >
+                        <div class="card-body" style="padding-top:20px;padding-bottom:25px;padding-right:20px">
+                           <h3 class="card-title text-center" style="color:green;font-family:poppins">TOTAL LEAVES  : 24.0 </h3>
+                           <hr>
+                           <div class="">
+                              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                              </div>
+                              <div class="ps-3" >
+                                 <div class="row">
+                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                       <div class="card info-card sales-card">
+                                          <div class="card-body" style="height:170px">
+                                             <h3 class="card-title text-center" style="color:DodgerBlue;font-family:poppins">USED LEAVES : {{total_leaves_count.total_leaves_count}}</h3>
+                                             <hr>
+                                             <br>
+                                             <div class="">
+                                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                </div>
+                                                <div class="ps-3" >
+                                                   <div class="row">
+                                                      <div class="col-sm-6">
+                                                         <h6 style="color:blue;padding-left:1px;margin-left:8%;margin-top:-13%;font-family:poppins ">CASUAL&nbsp;&nbsp;:&nbsp;&nbsp;<span style="color:red"><b>{{total_leaves_count.casual_leave_count}}</b></span></h6>
+                                                      </div>
+                                                      <div class="col-sm-6">
+                                                         <h6 style="color:blue;padding-left:1px;margin-left:-3%;margin-top:-13%;font-family:poppins">EMERGENCY&nbsp;&nbsp;:&nbsp;&nbsp;<span style="color:red"><b>{{total_leaves_count.emergency_leave_count}}</b></span></h6>
+                                                      </div>
+                                                   </div>
+                                                   <p></p>
+                                                   <div class="row">
+                                                      <div class="col-sm-6">
+                                                         <h6 style="color:purple;margin-left:8%;margin-top:-10%;font-family:poppins">MEDICAL&nbsp;&nbsp;:&nbsp;&nbsp;<span style="color:red"><b>{{total_leaves_count.sick_leave_count}}</b></span></h6>
+                                                      </div>
+                                                      <div class="col-sm-6" style="margin-left:0%">
+                                                         <h6 style="color:purple;margin-left:-3%;margin-top:-10%;font-family:poppins">LOP&nbsp;&nbsp;:&nbsp;&nbsp;<span style="color:red"><b>{{total_leaves_count.loss_of_pay}}</b></span></h6>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 col-sm-6">
+                                       <div class="card info-card sales-card">
+                                          <div class="card-body" style="height:170px">
+                                             {% if total_leaves_count %}
+                                             <h5 class="card-title text-center" style="color:Orange;font-family:poppins">REMAINING LEAVES :  {{usedleaves_count}}</h5>
+                                             {% else %}
+                                             <h5 class="card-title" style="color:Orange;font-family:poppins">REMAINING LEAVES :  24</h5>
+                                             {%endif%}
+                                             <hr>
+                                             <br>
+                                             <div class="">
+                                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                </div>
+                                                <div class="ps-3" >
+                                                   <div class="row">
+                                                      <div class="col-md-6 col-lg-6 col-sm-6">
+                                                         <h6 style="color:blue;padding-left:22px;margin-left:-10%;margin-top:-8%;font-family:poppins">CASUAL&nbsp;&nbsp;:&nbsp;&nbsp;<span style="color:red"><b>{{used_casual_leaves}}</b></span></h6>
+                                                      </div>
+                                                      <div class="col-md-6 col-lg-6 col-sm-6">
+                                                         <h6 style="color:purple;margin-left:-5%;margin-top:-8%;font-family:poppins">MEDICAL&nbsp;&nbsp;:&nbsp;&nbsp;<span style="color:red"><b>{{used_medical_leave}}</b></span></h6>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <h3 class="ml-3 text-center" style="margin-left:15px;color:#FF1493;padding-top:20px;font-weight:bold;font-family:math"><b>Apply Leave</b></h3>
+               <hr>
+
+               <form method="POST" id="leave_category" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="row">
+                     <div class="col-sm-6">
+                        <div class="form-group" style="margin-left:25px;">
+                           <label><b>
+                           Leave Category:</b><span class="star" style="color:red">*</span>
+                           </label>
+                           <select class="form-select w-75 mt-2" id="category" aria-label="Default select example" name="category" required>
+                              <option  selected="selected" value="{{user}}" disabled>Leave Category</option>
+                              {% if casual_l_c == True  and  sick_l_c == True %}
+                              <option id="Loss_Of_Pay1" value="Loss Of Pay">Loss Of Pay</option>
+                              {%elif casual_l_c == True %}
+                              <option id="Loss_Of_Pay1" value="Loss Of Pay">Loss Of Pay</option>
+                              <option value="Medical Leave">Medical Leave</option>
+                              {% elif sick_l_c == True %}
+                              <option id="casual" value="Casual Leave">Casual Leave</option>
+                              <option value="Emergency Leave">Emergency Leave</option>
+                              <option id="Loss_Of_Pay1" value="Loss Of Pay">Loss Of Pay</option>
+                              {%else%}
+                              <option id="casual" value="Casual Leave">Casual Leave</option>
+                              <option value="Emergency Leave">Emergency Leave</option>
+                              <option value="Medical Leave">Medical Leave</option>
+                              {% endif %}
+                           </select>
+                        </div>
+                        <br>
+                        <div class="form-group" style="margin-left:25px;">
+                           <label><b>
+                           Consider Half Leave:</b>
+                           </label>
+                           <p></p>
+                           <input type="checkbox" id="first-half" name="check" value="start_date_half" >
+                           <label class="checkbox-inline"> Start Date Half permission</label>&nbsp;&nbsp;
+                           <input type="checkbox" class="checkbox-inline" id="second-half" name="check" value="end_date_half" >
+                           <label class="checkbox-inline"> End Date Half permission</label>
+                        </div>
+                        <br>
+                        <div class="form-group mt-2" style="margin-left:25px;">
+                           <label><b>
+                           TotalDays:</b>
+                           </label>
+                           <input type="text" name="totaldays" id="totaldays" class="form-control w-75 mt-2">
+                        </div>
+                     </div>
+                     <div class="col-sm-6">
+   <div class="form-group" style="margin-left:25px;">
+      <label for="startdate"><b>StartDate:</b><span class="star" style="color:red">*</span></label>
+      <input type="date" name="startdate" id="startdate" value="{{ user.StartDate }}" class="form-control w-75 mt-2" required>
+   </div>
+   <br>
+   <div class="form-group" style="margin-left:25px;">
+      <label for="enddate"><b>EndDate:</b><span class="star" style="color:red">*</span></label>
+      <input type="date" name="enddate" id="enddate" value="{{ user.EndDate }}" class="form-control w-75 mt-2" onchange="getDays()" required>
+   </div>
+</div><p></p>
+
+<div class="col-sm-12">
+   <div class="form-group" style="margin-left:25px;margin-right:122px">
+      <label><b>Reason:</b><span class="star" style="color:red">*</span></label>
+      <textarea id="reason" name="reason" value="{{ user.reason }}" class="form-control w-100" required rows="3" cols="50"></textarea>
+   </div>
+</div>
+
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-lg text-center mt-3 ml-5" style="margin-left:76%;">Apply Leave</button>
+               </form>
+            </div>
+         </div>
+
+      </section>
+   </main>
+</body>
+<script>
+   //get the days between two dates
+
+     function getDays(){
+
+    const startDate= new Date(document.getElementById('startdate').value);
+      const endDate = new Date(document.getElementById('enddate').value);
+      const firstHalfCheckbox = document.getElementById('first-half');
+   const secondHalfCheckbox = document.getElementById('second-half');
+       //Here we will use getTime() function to get the time difference
+      // var time_difference = end_date.getTime() - start_date.getTime();
+       //Here we will divide the above time difference by the no of miliseconds in a day
+     //  var days_difference = time_difference / (1000*3600*24);
+       //alert(days);
+
+       const durationInDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+
+       if (firstHalfCheckbox.checked && secondHalfCheckbox.checked) {
+       totalDuration = durationInDays + 1;
+        } else if (firstHalfCheckbox.checked || secondHalfCheckbox.checked) {
+       totalDuration = durationInDays + 0.5;
+       } else {
+       totalDuration = durationInDays+1;
+      }
+
+        document.getElementById('totaldays').value = totalDuration;
+
+
+     }
+</script>
+<script>
+   $(document).ready(function() {
+     function setMinimumDate() {
+       var selectedCategory = $("#category").val();
+       var currentDate = new Date();
+       var minDate = currentDate.toISOString().split('T')[0];
+
+       if (selectedCategory === "Casual Leave") {
+         currentDate.setDate(currentDate.getDate() + 10);
+         minDate = currentDate.toISOString().split('T')[0];
+         $("#startdate").attr("min", minDate);
+         $("#startdate").removeAttr("max");
+         $("#enddate").attr("min", minDate);
+         $("#enddate").removeAttr("max");
+       } else if (selectedCategory === "Medical Leave") {
+         $("#startdate").attr("min", minDate);
+         $("#enddate").attr("min", minDate);
+         currentDate.setDate(currentDate.getDate() + 1);
+         var maxDate = currentDate.toISOString().split('T')[0];
+         $("#startdate").attr("max", maxDate);
+         $("#enddate").attr("max", maxDate);
+
+
+         } else if (selectedCategory === "Emergency Leave") {
+         $("#startdate").attr("min", minDate);
+         $("#enddate").attr("min", minDate);
+         currentDate.setDate(currentDate.getDate());
+         var maxDate = currentDate.toISOString().split('T')[0];
+         $("#startdate").attr("max", maxDate);
+         $("#enddate").attr("max", maxDate);
+
+         } else if (selectedCategory === "Loss Of Pay") {
+         $("#startdate").attr("min", minDate);
+         $("#enddate").attr("min", minDate);
+         currentDate.setDate(currentDate.getDate());
+         var maxDate = currentDate.toISOString().split('T')[0];
+         $("#startdate").attr("max", maxDate);
+         $("#enddate").attr("max", maxDate);
+
+
+
+       } else {
+         $("#startdate").removeAttr("min");
+         $("#startdate").removeAttr("max");
+         $("#enddate").removeAttr("min");
+         $("#enddate").removeAttr("max");
+       }
+     }
+
+     // Handle change event of leave category dropdown
+     $("#category").change(function() {
+       setMinimumDate();
+     });
+
+     // Initialize the date picker
+     setMinimumDate();
+   });
+</script>
+<script>
+   // Function to calculate the total duration
+   function calculateTotalDuration() {
+     const startDate = new Date(document.getElementById('startdate').value);
+     const endDate = new Date(document.getElementById('enddate').value);
+     const firstHalfCheckbox = document.getElementById('first-half');
+     const secondHalfCheckbox = document.getElementById('second-half');
+
+     if (!isNaN(startDate) && !isNaN(endDate)) {
+       const durationInDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+       let totalDuration = 0;
+
+       if (firstHalfCheckbox.checked && secondHalfCheckbox.checked) {
+         totalDuration = durationInDays + 1;
+       } else if (firstHalfCheckbox.checked || secondHalfCheckbox.checked) {
+         totalDuration = durationInDays + 0.5;
+       } else {
+         totalDuration = durationInDays + 1;
+       }
+
+       document.getElementById('totaldays').value = totalDuration;
+     }
+   }
+
+   // Add event listeners to input fields
+   document.getElementById('startdate').addEventListener('change', calculateTotalDuration);
+   document.getElementById('enddate').addEventListener('change', calculateTotalDuration);
+   document.getElementById('first-half').addEventListener('change', calculateTotalDuration);
+   document.getElementById('second-half').addEventListener('change', calculateTotalDuration);
+
+   calculateTotalDuration();
+</script>
+
+</html>
+{%endblock%}

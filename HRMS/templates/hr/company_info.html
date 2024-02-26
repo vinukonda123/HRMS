@@ -1,0 +1,470 @@
+{%extends 'hr/base.html'%}
+{%block content%}
+{% load static %}
+<head>
+   <title>samrt hrms</title>
+   <link rel="stylesheet"  href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+   <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+   <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+   <!-- Add Bootstrap CSS link -->
+   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+   <!-- Add Bootstrap JS scripts (jQuery and Popper.js are required) -->
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+   <style>
+      .nav-tabs li a {
+      padding: 0.75rem 1.25rem;
+      }
+      .nav-tabs.vertical li {
+      border: 1px solid #ddd;
+      display: block;
+      width: 100%
+      }
+      .star{
+      color:red;
+      }
+      #general{
+      color: orange;
+      }
+      table{
+      border:1px solid black;
+      }
+
+
+
+body {
+    font-family: 'Poppins';
+}
+
+
+table.dataTable thead th, table.dataTable tfoot th {
+    font-weight: 600;
+}
+
+
+   </style>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<main id="main" class="main">
+   <section class="section profile">
+      <div class="col-xl-12 col-lg-4">
+         <div class="card" style="box-shadow:20px 20px 60px whitesmoke,-20px -20px 60px whitesmoke;padding-top: 50px; padding-right: 1px; padding-bottom: 50px; padding-left: 50px" >
+            <div class="col-xl-12">
+               <div class="tab-content" id="v-pills-tabContent">
+                  <div class="tab-pane fade show active" id="v-pills-Company" role="tabpanel" aria-labelledby="v-pills-Company-tab" tabindex="0" style=" padding-top: 10px; padding-right: 40px; padding-bottom: 50px; padding-left: 0px;">
+                     <h3 style="color:blue;font-family:math"><b>Company Information</b></h3>
+                     <hr>
+
+                     <div class="container" id="update_company_info">
+                        <form id="company_info_sample_form">
+                           {% csrf_token %}
+                           {% for c in data44 %}
+                           <div class="row">
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>Company Name<span class="star">*</span></label>
+                                 <input type="text" name="company_name" id="company_name" value="{{c.company_info}}" class="form-control" style="color: rgb(169, 172, 172);" readonly disabled>
+                              </div>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>Email<span class="star">*</span></label>
+                                 <input type="text" name="email" id="email" value="{{c.email}}" class="form-control" style="color: rgb(169, 172, 172);" readonly disabled>
+                              </div>
+                           </div>
+                           <br>
+
+
+                           <div class="row">
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>Country<span class="star">*</span></label>
+                                 <input type="text" name="country" id="country1" value="{{c.country}}" class="form-control" style="color: rgb(169, 172, 172);" readonly disabled>
+                              </div>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>State<span class="star">*</span></label>
+                                 <input type="text" name="state" id="state" value="{{c.state}}" class="form-control" style="color: rgb(169, 172, 172);" readonly disabled>
+                              </div>
+                           </div>
+                           <br>
+                           <div class="row">
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>City<span class="star">*</span></label>
+                                 <input type="text" name="city" id="city" value="{{c.city}}" required="" style="color: rgb(169, 172, 172);" class="form-control" readonly disabled>
+                              </div>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>Mobile<span class="star">*</span></label>
+                                 <input type="text" name="mobile" id="mobile" value="{{c.mobile}}" required="" style="color: rgb(169, 172, 172);" class="form-control" readonly disabled>
+                              </div>
+                           </div>
+                           <br>
+                           <div class="row">
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>Toll Free No.<span class="star">*</span></label>
+                                 <input type="text" name="toll_free_no" id="toll_free_no" value="{{c.toll_free_no}}" required="" style="color: rgb(169, 172, 172);" class="form-control" readonly disabled>
+                              </div>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>Website<span class="star">*</span></label>
+                                 <input type="text" name="website" id="website" value="{{c.website}}" required="" style="color: rgb(169, 172, 172);" class="form-control" readonly disabled>
+                              </div>
+                           </div>
+                           <br>
+                           <div class="row">
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>Address<span class="star">*</span></label>
+                                 <textarea name="ctl00$cphBody$txtAddress" rows="2" cols="20" id="address" style="color: rgb(169, 172, 172);" class="form-control input-width" readonly disabled>{{c.address}}</textarea>
+                              </div>
+<div class="col-md-6 col-sm-6 col-xs-12">
+   <label>Logo<span class="star">*</span>&nbsp</label>
+   <img src="{{ c.logo.url }}" alt="Logo" name="logo_add" id="logo_add" width="100" height="100">
+</div>
+
+
+
+                           </div>
+                           <br>
+                           <center>
+
+
+<button type="button" data-bs-toggle="modal" data-bs-target="#update_company_info_data" class="btn btn-primary" data-record-id="{{c.id}}" value="{{c.id}}" style="margin-right: -90%;">Update</button>
+
+
+                              </center>
+                           {%endfor%}
+                        </form>
+                     </div>
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade model-centered custom-modal" id="update_company_info_data" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel_upd">Update</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+                          <form method="post" id="company_info_sample_form_upd" class="form-horizontal" autocomplete="off">
+
+                                                   <input type="hidden" name="_token" value="AbUR8GahIyj2UPK5OjVYJYkjmJC3lklimrYuSzHV">
+                                                   <div class="row">
+
+
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>Company Name<span class="star">*</span></label>
+                                 <input type="text" name="company_name" id="company_name_upd" value="" class="form-control" style="color: rgb(169, 172, 172);">
+                              </div>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>Email<span class="star">*</span></label>
+                                 <input type="text" name="email" id="email_upd" value="" class="form-control" style="color: rgb(169, 172, 172);">
+                              </div>
+                           </div>
+                           <br>
+                           <div class="row">
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>Country<span class="star">*</span></label>
+                                 <input type="text" name="country" id="country1_upd" value="" class="form-control" style="color: rgb(169, 172, 172);">
+                              </div>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>State<span class="star">*</span></label>
+                                 <input type="text" name="state" id="state_upd" value="" class="form-control" style="color: rgb(169, 172, 172);">
+                              </div>
+                           </div>
+                           <br>
+                           <div class="row">
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>City<span class="star">*</span></label>
+                                 <input type="text" name="city" id="city_upd" value="" required="" style="color: rgb(169, 172, 172);" class="form-control">
+                              </div>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>Mobile<span class="star">*</span></label>
+                                 <input type="text" name="mobile" id="mobile_upd" value="" required="" style="color: rgb(169, 172, 172);" class="form-control">
+                              </div>
+                           </div>
+                           <br>
+                           <div class="row">
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>Toll Free No.<span class="star">*</span></label>
+                                 <input type="text" name="toll_free_no" id="toll_free_no_upd" value="" required="" style="color: rgb(169, 172, 172);" class="form-control">
+                              </div>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>Website<span class="star">*</span></label>
+                                 <input type="text" name="website" id="website_upd" value="" required="" style="color: rgb(169, 172, 172);" class="form-control">
+                              </div>
+                           </div>
+                           <br>
+                           <div class="row">
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                 <label>Address<span class="star">*</span></label>
+                                 <textarea name="ctl00$cphBody$txtAddress" rows="2" cols="20" id="address_upd" style="color: rgb(169, 172, 172);" class="form-control input-width">{{c.address}}</textarea>
+                              </div>
+
+
+
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <label>Logo<span class="star">*</span>&nbsp</label>
+        <input type="file" name="logo" id="logo" accept="image/*"  required>
+    </div>
+
+
+
+                           </div>
+                           <br>
+
+
+
+
+
+
+
+
+
+                                                 <div class="container">
+                                                 <div class="form-group" align="center">
+                                                 <input type="hidden" name="action" id="company_info_action_upd">
+                                                 <input type="hidden" name="hidden_id" id="company_info_id">
+                                                     <div class="modal-footer">
+
+
+                                                         <a href="{%url 'company_info' %}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button></a>
+
+
+                                                     <button type="submit" class="btn btn-primary" data-record-id="{{c.id}}" value="{{c.id}}">Update</button>
+                                                 </div>
+                                                 </div>
+                                                 </div>
+
+
+                                                    </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+<script>
+$(document).ready(function () {
+
+    $("#company_info_sample_form").submit(function (event) {
+        event.preventDefault();
+
+
+        var company_name = $("#company_name").val();
+        var email = $("#email").val();
+        var country1 = $("#country1").val();
+        var state = $("#state").val();
+        var city = $("#city").val();
+        var mobile = $("#mobile").val();
+        var toll_free_no = $("#toll_free_no").val();
+        var website = $("#website").val();
+        var address = $("#address").val();
+
+        var csrfToken = $("input[name='csrfmiddlewaretoken']").val();
+        var data_id = $("#data_id").val();
+
+
+        var form44Data = new FormData();
+        form44Data.append('company_name', company_name);
+        form44Data.append('email', email);
+        form44Data.append('country1', country1);
+        form44Data.append('state', state);
+        form44Data.append('city', city);
+        form44Data.append('mobile', mobile);
+        form44Data.append('toll_free_no', toll_free_no);
+        form44Data.append('website', website);
+        form44Data.append('address', address);
+        form44Data.append('logo_add', $('#logo_add')[0].files[0]);
+
+        form44Data.append('data_id', data_id);
+
+
+
+        // Add a timestamp as a query parameter to prevent caching
+        var url = "{% url 'company_info' %}?timestamp=" + new Date().getTime();
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form44Data,
+            processData: false,
+            contentType: false,
+            headers: {
+                "X-CSRFToken": csrfToken
+            },
+            success: function (response) {
+                            $('#update_company_info').html(response.updatedData);
+
+                console.log(response.first_name);
+
+                // Update the display area with the updated data
+                $('#displayArea').html(response.updatedData);
+
+                alert("Data is updated successfully.");
+
+                // Close the modal or perform any other necessary actions
+                $('#company_info').modal('hide');
+                location.reload();
+
+
+            },
+            error: function (xhr, status, error) {
+                console.error("Error updating item:", error);
+            }
+        });
+    });
+});
+
+  </script>
+
+
+
+
+<script>
+   $(document).ready(function() {
+           $('[data-bs-target="#update_company_info_data"]').on('click', function() {
+           const recordId = $(this).data('record-id');
+                $('#company_info_id').val(recordId);
+  })
+
+
+         $("#company_info_sample_form_upd").submit(function(event) {
+                event.preventDefault();
+                var company_name_upd = $("#company_name_upd").val();
+                var email_upd = $("#email_upd").val();
+                var country1_upd = $("#country1_upd").val();
+                var state_upd = $("#state_upd").val();
+                var city_upd = $("#city_upd").val();
+                var mobile_upd = $("#mobile_upd").val();
+                var toll_free_no_upd = $("#toll_free_no_upd").val();
+                var website_upd = $("#website_upd").val();
+                var address_upd = $("#address_upd").val();
+
+
+
+                  var csrfToken = $("input[name='csrfmiddlewaretoken']").val();
+                    var data_id = $("#data_id").val();
+                        var recordId = $('#company_info_id').val();
+
+                      var form44Data = new FormData();
+                      form44Data.append('company_name_upd', company_name_upd);
+                      form44Data.append('email_upd', email_upd);
+                      form44Data.append('country1_upd', country1_upd);
+                      form44Data.append('state_upd', state_upd);
+                      form44Data.append('city_upd', city_upd);
+                      form44Data.append('mobile_upd', mobile_upd);
+                      form44Data.append('toll_free_no_upd', toll_free_no_upd);
+                      form44Data.append('website_upd', website_upd);
+                      form44Data.append('address_upd', address_upd);
+                      form44Data.append('logo', $('#logo')[0].files[0]);
+
+
+
+
+
+
+                        form44Data.append('data_id', data_id);
+                           form44Data.append('company_info_id', recordId );
+
+
+
+                      var csrfToken = $("input[name='csrfmiddlewaretoken']").val();
+
+
+
+
+                 $.ajax({
+                    type: "POST",
+                    url: "/update_company_info/",
+
+                    data:form44Data,
+                     processData: false,  // Prevent jQuery from processing data
+                     contentType: false,
+                     headers: {
+                      "X-CSRFToken": csrfToken
+                      },
+                    success: function(response) {
+                    console.log(response.first_name)
+                       alert("data is  updated successfully:");
+                        $('#update_company_info').modal('hide');
+                          location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                       console.error("Error updating item:", error);
+                    }
+                });
+            });
+
+
+        });
+
+  </script>
+
+
+
+<script>
+
+       $('[data-bs-target="#update_company_info_data"]').on('click', function() {
+          const recordId = $(this).data('record-id');
+
+
+    // Make an AJAX request to fetch the existing data for the record
+    $.ajax({
+        type: "GET",
+        url: "/company_info_get/" + recordId+"/", // Replace with your URL for fetching data
+        success: function(response) {
+
+
+            $("#company_name_upd").val(response.company_name_upd);
+            $("#email_upd").val(response.email_upd);
+            $("#country1_upd").val(response.country1_upd);
+            $("#state_upd").val(response.state_upd);
+            $("#city_upd").val(response.city_upd);
+            $("#mobile_upd").val(response.mobile_upd);
+            $("#toll_free_no_upd").val(response.toll_free_no_upd);
+            $("#website_upd").val(response.website_upd);
+            $("#address_upd").val(response.address_upd);
+            $("#logo").val("");
+
+
+
+
+
+            $('#update_company_info').modal('show');
+        },
+        error: function (xhr, status, error) {
+            console.error("Error fetching designation data:", error);
+        }
+    });
+});
+
+</script>
+
+
+{%endblock%}

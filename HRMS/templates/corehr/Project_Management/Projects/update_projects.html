@@ -1,0 +1,317 @@
+
+{%extends 'hr/base.html'%}
+{%load static%}
+{%block content%}
+<head>
+
+<!-- ... Your previous HTML code ... -->
+
+
+<style>
+/* Style the custom select container */
+.custom-select {
+  position: relative;
+}
+
+/* Style the select wrapper to create a custom dropdown */
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+
+
+
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Style the select element to make it transparent and positioned over the custom dropdown */
+.custom-select select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* Make the select element transparent */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Style the custom dropdown arrow */
+.select-wrapper::after {
+  content: '\25BC'; /* Unicode character for a down arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 8px;
+}
+
+/* Style the custom dropdown when it's focused or hovered */
+.select-wrapper:hover,
+.select-wrapper:focus {
+  border-color: #007bff; /* Change border color on hover or focus */
+}
+
+
+
+</style>
+
+<style>
+  /* Add spacing between form groups (rows) */
+  .form-group {
+    margin-bottom: 20px; /* Adjust the value to control the spacing */
+  }
+</style>
+
+<style>
+
+  .fc-toolbar h2 {
+    color: #0F0BF6;
+    font-size:30px;
+  }
+</style>
+<style>
+/* Define CSS styles for grid lines */
+.fc-view {
+  border: 1px solid #ddd; /* Add borders to the calendar view */
+}
+
+/* Define CSS styles for the block box */
+.event-block {
+  border: 2px solid #333; /* Add a border to the block box */
+  background-color: blue; /* Background color for the block box */
+  position: absolute;
+  z-index: 10000;
+}
+
+/* Style for long event titles */
+.fc-event-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Show the block box on hover */
+.fc-event:hover .event-block {
+  display: block;
+}
+.festival-box {
+  background-color: #BBE6B0; /* Set the background color for festival boxes */
+  padding: 5px;
+  margin: 2px;
+  border: 1px solid #ddd;
+  color: white; /* Text color for festival boxes */
+  font-weight: bold; /* Bold text for festival boxes */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Show ellipsis (...) for long titles */
+  position: relative; /* Use relative positioning */
+  z-index: ; /* Ensure festival boxes are above the calendar cells */
+}
+
+.form-control{
+margin-top:10px;
+}
+.star{
+color:red;
+}
+</style>
+<style>
+  #calendar {
+    font-size: 15px; /* Adjust font size as needed */
+  }
+
+  .fc-header-toolbar {
+    padding: 0px; /* Adjust padding as needed */
+  }
+</style>
+
+
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+<link rel="stylesheet"  href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+
+
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+
+<!-- Add Bootstrap CSS link -->
+
+
+<!-- Add Bootstrap JS scripts (jQuery and Popper.js are required) -->
+
+
+
+
+
+
+
+
+
+
+
+
+           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</head>
+
+
+<main id="main" class="main">
+
+    <section class="section profile">
+
+        <div class="col-xl-12 col-lg-4">
+
+          <div class="card" style="box-shadow:20px 20px 60px whitesmoke,-20px -20px 60px whitesmoke" >
+
+
+              <h1 class="modal-title fs-5" id="exampleModalLabel_upd" style="padding-top:2%;padding-left:2%;color:blue;font-family:math"><b>Project Update</b></h1>
+              <hr style="margin-left:2%;margin-right:2%">
+      <div class="modal-body" style="padding-left:3%;padding-right:3%">
+
+
+                          <form method="post" id="" class="form-horizontal" autocomplete="off">
+{%csrf_token%}
+
+                                                  <div class="row">
+
+
+
+
+
+
+<div class="col-md-6 form-group">
+<label><b>Project Title</b><span class="star">*</span></label>
+<input type="text" name="project_title_upd" id="project_title_upd" value="{{project.title}}" required="" autocomplete="off" class="form-control" placeholder="Project Title">
+</div>
+
+<div class="col-md-6 form-group">
+<label><b>Start Date</b><span class="star">*</span></label>
+<input type="date" name="start_date_upd" id="start_date_upd" value="{{project.start_date|date:'Y-m-d'}}" placeholder="" title="" required="" class="form-control">
+</div>
+ <div class="col-md-6 form-group">
+<label><b>End Date</b><span class="star">*</span></label>
+<input type="date" name="end_date_upd" id="end_date_upd" value="{{project.end_date|date:'Y-m-d'}}" placeholder="" title="" required="" class="form-control">
+</div>
+
+
+
+
+<div class="col-md-6 form-group">
+    <label><b>Client</b><span class="star">*</span></label>
+     <div class="select-wrapper">
+    <select id="client_upd" name="client_upd" class="form-control" required>
+      <option value="" disabled selected>Clients</option>
+        {% for client in clients %}
+             <option value="{{ client.id }}" {% if project.client.name == client.name %}selected="selected"{% endif %}>{{ client.name }}</option>
+
+        {% endfor %}
+    </select>
+     </div>
+    <span style="color:red"  class="error-message" id="country_assets_upd-error"></span>
+    </div>
+
+
+
+
+
+
+<div class="col-md-6 form-group">
+    <label><b>Company</b><span class="star">*</span></label>
+     <div class="select-wrapper">
+    <select id="company_upd" name="company_upd" class="form-control" required>
+      <option value="" disabled selected>Company</option>
+        {% for i1 in camp %}
+                    <option value="{{ i1.id }}" {% if project.company.name == i1.name %}selected="selected"{% endif %}>{{ i1.name }}</option>
+
+        {% endfor %}
+    </select>
+     </div>
+    <span style="color:red"  class="error-message" id="country_assets_upd-error"></span>
+    </div>
+
+
+
+  <div class="col-md-6 form-group">
+   <label><b>Priority</b><span class="star">*</span></label>
+       <div class="select-wrapper">
+  <select name="Priority_upd" id="Priority_upd" class="form-control" required>
+<option value="" disabled selected>Priority</option>
+<option value="Low">Low</option>
+     <option value="Medium">Medium</option>
+       <option value="High">High</option>
+
+               </select>
+       </div>
+
+     </div>
+
+
+<div class="col-md-6 form-group">
+     <label><b>Employees</b><span class="star">*</span></label>
+   <select name="employee" id="employees_upd" multiple="multiple">
+    {% for i in employees %}
+               {% if emps.id != request.user.id %}
+
+            <option value="{{ i.id }}" {% if project.employee.username == i.username %}selected="selected"{% endif %}>{{ i.username }}</option>
+
+       {% endif %}
+        {% endfor %}
+
+</select>  </div>
+
+
+
+
+
+<div class="col-md-6 form-group">
+<label><b>Summary</b><span class="star">*</span></label>
+ <textarea class="form-control" name="summary_upd" value="{{project.summary}}" id="summary_upd" rows="3"></textarea>
+</div>
+    <div class="col-md-6 form-group">
+<label><b>Progress</b><span class="star">*</span></label>
+
+
+<input type="text" name="progress_upd" id="progress_upd" value="{{project.Progress}}" required="" autocomplete="off" class="form-control" placeholder="Progress (%)">
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                 <div class="container">
+                                                 <div class="form-group" align="center">
+                                                <div class="modal-footer">
+                                                    <a href="{%url 'list_project' %}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 10px;">Cancel</button></a>
+      <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+                                                 </div>
+                                                 </div>
+                                                 </div>
+
+
+                                                    </form>
+      </div></div></div></section></main>
+</body>
+
+</html>
+  {% endblock %}

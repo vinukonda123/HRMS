@@ -1,0 +1,200 @@
+
+
+{%extends 'hr/base.html'%}
+
+{%block content%}
+<head>
+
+        <title>samrt hrms</title>
+        <link rel="stylesheet"  href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+
+<!-- Add Bootstrap CSS link -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Add Bootstrap JS scripts (jQuery and Popper.js are required) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <style>
+
+
+        .nav-tabs li a {
+            padding: 0.75rem 1.25rem;
+        }
+
+        .nav-tabs.vertical li {
+            border: 1px solid #ddd;
+            display: block;
+            width: 100%
+        }
+
+.star{
+  color:red;
+}
+
+
+
+
+#general{
+  color: orange;
+}
+
+
+
+.modal-backdrop{
+    --bs-backdrop-bg: #00000094;
+}
+
+
+
+
+body {
+    font-family: 'Poppins' !important ;
+}
+
+
+table.dataTable thead th, table.dataTable tfoot th {
+    font-weight: 600 !important;
+}
+
+
+
+
+    </style>
+
+
+<style>
+/* Style the custom select container */
+.custom-select {
+  position: relative;
+}
+
+/* Style the select wrapper to create a custom dropdown */
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+
+
+
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Style the select element to make it transparent and positioned over the custom dropdown */
+.custom-select select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* Make the select element transparent */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Style the custom dropdown arrow */
+.select-wrapper::after {
+  content: '\25BC'; /* Unicode character for a down arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 8px;
+}
+
+/* Style the custom dropdown when it's focused or hovered */
+.select-wrapper:hover,
+.select-wrapper:focus {
+  border-color: #007bff; /* Change border color on hover or focus */
+}
+
+
+
+</style>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    </head>
+
+</style>
+
+<main id="main" class="main">
+
+
+    <section class="section profile">
+
+        <div class="col-xl-12 col-lg-4">
+
+          <div class="card" style="box-shadow:20px 20px 60px whitesmoke,-20px -20px 60px whitesmoke;padding-top: 50px; padding-right: 1px; padding-bottom: 50px; padding-left: 50px;" >
+
+<h3 style="color:blue ;font-family:math"><b>Week Wise Attendance Reports</b></h3>
+                         <hr>
+
+<div class="table-responsive">
+    <table id="example" class="display mt-5" >
+        <thead>
+            <tr style="font-size: 95%;">
+                                <th style="background-color:#EDECEA;">S.No</th>
+
+                <th style="background-color:#EDECEA;">Employee</th>
+
+
+
+               {% for i in l4%}<th style="background-color:#EDECEA;font-weight:600;">
+                            <span style="color:blue">{{ i }}</span>
+
+                    </th>{% endfor %}
+
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee, data in d2.items %}
+
+                <tr>
+                                                   <td>{{ forloop.counter }}</td>
+
+                    <td>{{ employee.fullname }}</td> <!-- Display the employee's name -->
+
+                    {% for date, status in data.items%}
+
+
+                        <td>
+                            {% if date.1 == "Present" %}
+                                <span style="color:blue"> P</span>
+                            {% elif date.1 == "Leave" %}
+                                <span style="color:green">L</span>
+                            {% elif date.1 == "WeekOff" %}
+                                <span style="color:grey">W</span>
+                            {% else %}
+                                <span style="color:red">A</span>
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div></div></div></section></main>
+<script>
+     new DataTable('#example');
+ </script>
+
+{%endblock%}

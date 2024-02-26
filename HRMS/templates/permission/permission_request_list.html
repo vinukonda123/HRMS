@@ -1,0 +1,108 @@
+
+ {%extends 'base1.html'%}
+
+{%block content%}
+
+<head>
+
+
+
+    <link rel="stylesheet"  href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+</head>
+<style>
+
+
+body {
+    font-family: 'Poppins' !important ;
+}
+
+
+table.dataTable thead th, table.dataTable tfoot th {
+    font-weight: 600 !important;
+}
+
+</style>
+
+
+<main id="main" class="main">
+
+
+    <section class="section profile">
+
+        <div class="col-xl-12 col-lg-4">
+
+          <div class="card" style="box-shadow:20px 20px 60px whitesmoke,-20px -20px 60px whitesmoke; padding-top: 50px; padding-right: 70px; padding-bottom: 50px; padding-left: 50px;" >
+
+
+              <h3 class="ml-3" style="margin-left:1px;color:#FF1493;padding-top:1px;font-family:math"><b>Permission Reports</b></h3><hr>
+
+
+
+<!--Table-->
+<table id="example" class="display mt-5">
+
+  <!--Table head-->
+  <thead>
+    <tr>
+     <th style="background-color:#EDECEA;">Permission Type</th>
+     <th style="background-color:#EDECEA;">Start Date</th>
+     <th style="background-color:#EDECEA;">End Date</th>
+       <th style="background-color:#EDECEA;">Choose Time</th>
+       <th style="background-color:#EDECEA;">Reason</th>
+        <th style="background-color:#EDECEA;">Approved By</th>
+      <th style="background-color:#EDECEA;">Status</th>
+    </tr>
+  </thead>
+  <!--Table head-->
+
+  <!--Table body-->
+  <tbody>
+    {% for permission,p in list %}
+    <tr class="" style="font-size: 95%;">
+
+
+
+
+                <td>{{permission.permission_category}}</td>
+                <td>{{permission.StartDate}}</td>
+                <td>{{permission.EndDate}}</td>
+                <td>{{permission.choose_time}}</td>
+                 <td>{{permission.reason }}</td>
+
+               <td>{{p.approver}}</td>
+
+        {% if p.approval_status == "Approved" %}
+          <td><span class="badge bg-success">{{ p.approval_status}}</span></td>
+
+           {% elif p.approval_status == "Rejected" %}
+          <td><span class="badge bg-danger">{{p.approval_status }}</span></td>
+          {% elif p.approval_status == "Pending" %}
+
+           <td><span class="badge bg-warning">{{p.approval_status }}</span></td>
+
+
+           {%endif%}
+
+            </tr>
+{%endfor%}
+
+  </tbody>
+  <!--Table body-->
+
+
+</table>
+
+
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+ <script>
+     new DataTable('#example');
+ </script>
+
+ {%endblock%}

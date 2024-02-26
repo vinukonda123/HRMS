@@ -1,0 +1,634 @@
+
+ {%extends "base1.html"%}
+
+ {%block content%}
+  {% load static %}
+
+
+
+
+
+
+
+
+  <head>
+
+        <title>samrt hrms</title>
+
+
+       <link rel="stylesheet"  href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+
+    <<style>
+
+
+
+       table{
+        border:1px solid black;
+        }
+        th{
+        border:1px solid black;
+        }
+        td{
+        border:1px solid black;
+        }
+
+        .nav-tabs li a {
+            padding: 0.75rem 1.25rem;
+        }
+
+        .nav-tabs.vertical li {
+            border: 1px solid #ddd;
+            display: block;
+            width: 100%
+        }
+
+.star{
+  color:red;
+}
+
+
+
+
+#general{
+  color: orange;
+}
+
+table{
+  border:1px solid black;
+   }
+   th{
+ border:1px solid black;
+   }
+ td{
+  border:1px solid black;
+  }
+
+
+body {
+    font-family: 'Poppins' !important ;
+}
+
+
+
+b, strong {
+    font-weight: 600 !important;
+}
+
+
+
+
+
+
+    </style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    </head>
+
+
+
+
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+<link rel="stylesheet"  href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+
+
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+
+<!-- Add Bootstrap CSS link -->
+
+
+<!-- Add Bootstrap JS scripts (jQuery and Popper.js are required) -->
+
+
+
+
+
+
+<!-- Add Bootstrap CSS and JS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- Add Bootstrap-select CSS and JS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+
+
+
+
+
+</head>
+
+
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Profile</h1>
+
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="row">
+
+
+        <div class="col-xl-12">
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Update Profile</button>
+                </li>
+
+            <!--    <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+                </li>-->
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                </li>
+
+              </ul>
+              <div class="tab-content pt-2" style="margin-left:2%">
+
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+
+                  <h5 class="card-title" style="font-size:25px;color:#bf00ff;">Personal Details:</h5>
+<div class="row">
+    <div class="col-sm-8">
+        <div class="row">
+                    <div class="col-lg-3 col-md-4 label">FULL NAME</div>
+                    <div class="col-lg-9 col-md-8" >{{emp_obj.fullname|upper}}</div>
+                  </div>
+                   <div class="row">
+                    <div class="col-lg-3 col-md-4 label">PHONE</div>
+                    <div class="col-lg-9 col-md-8">{{emp_obj.phone_number}}</div>
+                  </div>
+                       <div class="row">
+                    <div class="col-lg-3 col-md-4 label">DATE OF BIRTH</div>
+                    <div class="col-lg-9 col-md-8"> {{emp_obj.BirthDate }}</div>
+                  </div>
+
+                   <div class="row">
+                    <div class="col-lg-3 col-md-4 label">GENDER</div>
+                    <div class="col-lg-9 col-md-8"> {{emp_obj.Gender|upper}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">MARITAL STATUS</div>
+                    <div class="col-lg-9 col-md-8">{{emp_obj.MaratialStatus|upper}}</div>
+                  </div>
+                            <div class="row">
+                    <div class="col-lg-3 col-md-4 label">CITY</div>
+                    <div class="col-lg-9 col-md-8"> {{emp_obj.City|upper}}  </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">ADDRESS</div>
+                    <div class="col-lg-9 col-md-8">{{emp_obj.Address|upper}}</div>
+                  </div>
+                       <div class="row">
+                    <div class="col-lg-3 col-md-4 label">COUNTRY</div>
+                    <div class="col-lg-9 col-md-8">India</div>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">EMAIL</div>
+                    <div class="col-lg- 9 col-md-8">{{emp_obj.user.email}}</div>
+                  </div>
+
+
+
+                 <div class="row">
+                    <div class="col-lg-3 col-md-4 label">DEPARTMENT</div>
+                    <div class="col-lg-9 col-md-8">{{emp_obj.Department}}</div>
+                  </div>
+
+
+    </div>
+    <div class="col-sm-4" style="margin-left:-15%">
+        <div class="">
+            <div class="card-body pt-3 d-flex flex-column align-items-center">
+
+              <img src="{{emp_obj.image.url}}" alt="" class="" style="
+    height: 214px;
+    width: 241px;
+    border-radius:24px;
+">
+              <p></p>
+              <div class="social-links mt-2 ml-5" style="padding-right: 53px;">
+                <a href="https://twitter.com" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="https://facebook.com" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="https://instagram.com" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="https://linkedin.com" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-8">
+<h5 class="card-title" style="font-size:25px;color:#bf00ff;">OFFICE DETAILS:</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">EMPLOYEE TYPE</div>
+                    <div class="col-lg-9 col-md-8">{{emp_obj.employee_type|upper}}</div>
+                  </div>
+
+                   <div class="row">
+                    <div class="col-lg-3 col-md-4 label">DEPARTMENT</div>
+                    <div class="col-lg-9 col-md-8">{{emp_obj.Department|upper}}</div>
+                  </div>
+                       <div class="row">
+                    <div class="col-lg-3 col-md-4 label">ROLE</div>
+                    <div class="col-lg-9 col-md-8"> {{emp_obj.Role|upper}}</div>
+                  </div>
+
+                   <div class="row">
+                    <div class="col-lg-3 col-md-4 label">SHIFT TIME</div>
+                    <div class="col-lg-9 col-md-8"> {{emp_obj.Shift_time}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">WORKING DAYS</div>
+                    <div class="col-lg-9 col-md-8">Monday, Tuesday, Wednesday, Thursday, Friday</div>
+                  </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-8">
+        <h5 class="card-title" style="font-size:25px;color:#bf00ff;">EDUCATION DETAILS:</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">EDUCATION TYPE</div>
+                    <div class="col-lg-9 col-md-8">{{emp_obj.Education_type|upper}}</div>
+                  </div>
+                   <div class="row">
+                    <div class="col-lg-3 col-md-4 label">GRADUATION</div>
+                    <div class="col-lg-9 col-md-8">{{emp_obj.Designation|upper}}</div>
+                  </div>
+                     <div class="row">
+                    <div class="col-lg-3 col-md-4 label">BRANCH</div>
+                    <div class="col-lg-9 col-md-8">{{emp_obj.Branch|upper}}</div>
+                  </div>
+                       <div class="row">
+                    <div class="col-lg-3 col-md-4 label">UNIVERSITY NAME</div>
+                    <div class="col-lg-9 col-md-8">{{emp_obj.university|upper}}</div>
+                  </div>
+                      <div class="row">
+                    <div class="col-lg-3 col-md-4 label">PASSING YEAR</div>
+                    <div class="col-lg-9 col-md-8">{{emp_obj.passing_year}}</div>
+                  </div>
+                 </div>
+    </div>
+</div>
+
+
+
+
+
+
+                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                  <!-- Profile Edit Form -->
+
+                   <h6 class="card-title" style="font-size:20px;color:#8000ff;">PERSONAL DETAILS:</h6><hr>
+
+                  <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">FULL NAME</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="fullName" type="text" class="form-control w-50 mt-2 " id="fullName" value="{{emp_obj.fullname}}" required >
+                      </div>
+                    </div>
+
+
+
+
+
+                    <div class="row mb-3">
+                      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">PHONE</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="phone" type="text" class="form-control w-50 mt-2" id="Phone" value="{{emp_obj.phone_number}}" required >
+                      </div>
+                    </div>
+                      <div class="row mb-3">
+                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">EMAIL</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="email" type="email" class="form-control w-50 mt-2" id="Email" value="{{user.email}}" required >
+                      </div>
+                    </div>
+
+
+
+                        <div class="row mb-3">
+                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">CITY</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="city" type="text" class="form-control w-50 mt-2" id="city" value="{{emp_obj.City}}" required >
+                      </div>
+                    </div>
+                     <div class="row mb-3">
+                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">ADDRESS</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="address" type="text" class="form-control w-50 mt-2 " id="Address" value="{{emp_obj.Address}}" required >
+                      </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                    <div class="row mb-3">
+  <label class="col-md-4 col-lg-3 col-form-label">SHIFT TIME</label>
+
+  <div class="col-md-8 col-lg-9">
+
+      <select name="shift" class="form-control w-50 mt-2 custom-select" id="shift" required>
+        <option value="" disabled selected>shift</option>
+        <option value="9:30AM-7:00PM" {% if emp_obj.Shift_time == "9:30AM-7:00PM" %}selected="selected"{% endif %}>9:30AM-7:00PM</option>
+        <option value="2:00PM-10:00PM" {% if emp_obj.Shift_time == "2:00PM-10:00PM" %}selected="selected"{% endif %}>2:00PM-10:00PM</option>
+        <option value="6:00AM-2:00PM" {% if emp_obj.Shift_time == "6:00AM-2:00PM" %}selected="selected"{% endif %}>6:00AM-2:00PM</option>
+        <option value="Customize" {% if emp_obj.Shift_time == "Customize" %}selected="selected"{% endif %}>Customize</option>
+
+
+
+      </select>
+    </div>
+  </div>
+
+
+                     <div class="row mb-3">
+                      <label class="col-md-4 col-lg-3 col-form-label">MARITAL STATUS</label>
+                      <div class="col-md-8 col-lg-9">
+
+                        <select class="form-control w-50 mt-2 custom-select" id="marital_status" name="marital_status" value ="{{emp_obj.Marital_Status}}" required>
+
+                       <option  value="" disabled selected>Marital Status</option>
+                       <option value="Single" {% if emp_obj.MaratialStatus == "Single" %}selected="selected"{% endif %}>Single</option>
+                       <option value="Married" {% if emp_obj.MaratialStatus == "Married" %}selected="selected"{% endif %}>Married</option>
+
+
+
+                         </select>
+                              </div>
+                      </div>
+
+
+                    <div class="row mb-3">
+                      <label class="col-md-4 col-lg-3 col-form-label ">DATE OF BIRTH</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="dob" type="date" class="form-control w-50 mt-2" id="dob" value="{{emp_obj.BirthDate|date:'Y-m-d'}}" required >
+                      </div>
+                    </div>
+
+
+                      <div class="row mb-3">
+                      <label class="col-md-4 col-lg-3 col-form-label">PROFILE IMAGE</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input type="file" id="img" name="img" value="{{emp_obj.image}}" required >
+
+                        </div>
+                      </div>
+
+
+
+
+
+                     <h6 class="card-title" style="font-size:20px;color:#8000ff;">EDUCATION DETAILS:</h6><hr>
+
+
+
+
+                    <div class="row mb-3">
+                      <label class="col-md-4 col-lg-3 col-form-label">EDUCATION TYPE</label>
+                      <div class="col-md-8 col-lg-9">
+                       <select class="form-control w-50 mt-2 custom-select" id="education type" name="education type" required >
+                             <option value="" disabled selected>EDUCATION TYPE</option>
+                             <option value="FullTime" {% if emp_obj.Education_type == "FullTime" %}selected="selected"{% endif %}>FullTime</option>
+                             <option value="PartTime" {% if emp_obj.Education_type == "PartTime" %}selected="selected"{% endif %}>PartTime</option>
+
+
+                       </select>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">UNIVERSITY</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="university" type="text" class="form-control w-50 mt-2" id="" value="{{emp_obj.university}}" required >
+                      </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                      <label class="col-md-4 col-lg-3 col-form-label">GRADUATION</label>
+                      <div class="col-md-8 col-lg-9">
+                       <select class="form-control w-50 mt-2 custom-select" id="designation" name="designation" required >
+                             <option value="" disabled selected>Graduation</option>
+                             <option value="B.Tech" {% if emp_obj.Designation == "B.Tech" %}selected="selected"{% endif %}>B.Tech</option>
+                             <option value="M.Tech" {% if emp_obj.Designation == "M.Tech" %}selected="selected"{% endif %}>M.Tech</option>
+                             <option value="Degree" {% if emp_obj.Designation == "Degree" %}selected="selected"{% endif %}>Degree</option>
+                             <option value="Phd" {% if emp_obj.Designation == "Phd" %}selected="selected"{% endif %}>Phd</option>
+
+
+
+                         </select>
+                      </div>
+                    </div>
+
+                     <div class="row mb-3">
+                      <label class="col-md-4 col-lg-3 col-form-label">BRANCH</label>
+                      <div class="col-md-8 col-lg-9">
+                       <select class="form-control w-50 mt-2 custom-select" id="branch" name="branch" required >
+                             <option value="" disabled selected>BRANCH</option>
+                             <option value="ECE" {% if emp_obj.Branch == "ECE" %}selected="selected"{% endif %}>ECE</option>
+                             <option value="IT" {% if emp_obj.Branch == "IT" %}selected="selected"{% endif %}>IT</option>
+                             <option value="CSE" {% if emp_obj.Branch == "CSE" %}selected="selected"{% endif %}>CSE</option>
+                             <option value="EEE" {% if emp_obj.Branch == "EEE" %}selected="selected"{% endif %}>EEE</option>
+                             <option value="MECH" {% if emp_obj.Branch == "MECH" %}selected="selected"{% endif %}>MECH</option>
+                             <option value="Others" {% if emp_obj.Branch == "Others" %}selected="selected"{% endif %}>Others</option>
+
+                         </select>
+                      </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                      <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">PASSING YEAR</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="passingyear" type="text" class="form-control w-50 mt-2" id="Instagram" value="{{emp_obj.passing_year}}" required >
+                      </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                  </form><!-- End Profile Edit Form -->
+
+                </div>
+
+             <!--   <div class="tab-pane fade pt-3" id="profile-settings">
+
+                   Settings Form
+                  <form>
+
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
+                      <div class="col-md-8 col-lg-9">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="changesMade" checked>
+                          <label class="form-check-label" for="changesMade">
+                            Changes made to your account
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="newProducts" checked>
+                          <label class="form-check-label" for="newProducts">
+                            Information on new products and services
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="proOffers">
+                          <label class="form-check-label" for="proOffers">
+                            Marketing and promo offers
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
+                          <label class="form-check-label" for="securityNotify">
+                            Security alerts
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                  </form>
+
+                </div> -->
+
+                <div class="tab-pane fade pt-3" id="profile-change-password">
+                  <!-- Change Password Form -->
+                  <form method="post">
+                      {%csrf_token%}
+
+                    <div class="row mb-3">
+                      <label for="username" class="col-md-4 col-lg-3 col-form-label">USERNAME</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="username" type="username" class="form-control w-50 mt-2" value="{{user.username}}" id="username">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">NEW PASSWORD</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="newpassword" type="password" class="form-control w-50 mt-2" id="newPassword">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">CONFIRM PASSWORD</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="confirmpassword" type="password" class="form-control w-50 mt-2" id="renewPassword">
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Change Password</button>
+                    </div>
+                  </form><!-- End Change Password Form -->
+
+                </div>
+
+              </div><!-- End Bordered Tabs -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+
+ <script>
+    window.onload = function() {
+
+        var maxDate = new Date();
+        maxDate.setFullYear(maxDate.getFullYear() - 18);
+
+
+        var formattedMaxDate = maxDate.toISOString().split('T')[0];
+
+
+        document.getElementById("Country").setAttribute("max", formattedMaxDate);
+    };
+</script>
+
+
+</body>
+
+</html>
+{%endblock%}

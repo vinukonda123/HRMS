@@ -1,0 +1,215 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ {%extends 'hr/base.html'%}
+
+{%block content%}
+{% include 'hr/email/sideber.html' %}
+
+
+
+
+
+
+
+
+  <head>
+
+        <title>samrt hrms</title>
+        <link rel="stylesheet"  href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+
+     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+
+<!-- Add Bootstrap CSS link -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+<!-- Add Bootstrap JS scripts (jQuery and Popper.js are required) -->
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+
+
+
+
+
+             <style>
+.btn-group button {
+  background-color: slateblue; /* Green background */
+  border: 1px solid white; /* Green border */
+  color: white; /* White text */
+  padding: 18px 18px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  width: 20%; /* Set a width if needed */
+  display: block; /* Make the buttons appear below each other */
+  border-radius:15px;
+  font-size:17px;
+  font-weight:bold;
+}
+
+.btn-group button:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+</style>
+   <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+
+    </head>
+
+
+
+<main id="main" class="main">
+    <section class="section profile">
+        <div class="col-xl-12 col-lg-4">
+            <div class="card" style="box-shadow: 20px 20px 60px whitesmoke, -20px -20px 60px whitesmoke; padding-top: 50px; padding-right: 1px; padding-bottom: 50px; padding-left: 50px;">
+
+
+
+
+
+
+
+    <div class="btn-group flex-column">
+    <div class="row">
+        <div class="col-sm-3">
+                    <a href="{%url 'compose' %}"><button class="bg-dark" style="width:100%">Compose()</button></a>
+             <a href="{%url 'receive_emails' %}"><button class="bg-primary" style="width:100%">Inbox({{received_emails_count}})</button></a>
+   <a href="{%url 'sent_emails' %}"><button class="bg-success" style="width:100%">Sent<blink>({{sent_emails_count}})</blink></button></a>
+      <a href="{%url 'delete_emails' %}"> <button class="bg-danger" style="width:100%">Delete({{delete_emails_count}})</button></a>
+      </div>
+        <div class="col-sm-8" >
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-col-xl-2 col-xxl-2">
+         <h4 class="text-danger fw-semibold">From: </h4>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-col-xl-6 col-xxl-6">
+         <b>{{detail_email.sender.username|upper}}</b>
+    </div>
+</div>
+            <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-col-xl-2 col-xxl-2">
+          <h4 class="text-success fw-semibold">To: </h4>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-col-xl-6 col-xxl-6">
+         {% for i in detail_email.recipient.all%} <b>{{i.username|upper}}</b>{%endfor%}
+    </div>
+</div>
+            <div class="row">
+       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-col-xl-2 col-xxl-2">
+        <h4 class="text-info fw-semibold">Subject: </h4>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-col-xl-6 col-xxl-6">
+        <b>{{detail_email.subject|upper}}</b>
+    </div>
+
+</div>
+            <div class="row">
+       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-col-xl-2 col-xxl-2">
+         <h4 class="text-secondary fw-semibold">Time:</b> </h4>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-col-xl-6 col-xxl-6">
+         <b> {{detail_email.timestamp|date:'d-m-Y H:i'}}</b>
+    </div>
+</div>
+               <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-col-xl-3 col-xxl-3">
+        <h4 class="text-success fw-semibold">Message: </h4>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-col-xl-6 col-xxl-6">
+        <b>{{detail_email.message|upper}}</b>
+
+</div>
+  <h2>Replies</h2>
+
+{% if replies %}
+    {% for reply in replies %}
+        <p>Reply from: {{ reply.sender.username }}</p>
+        <p>Message: {{ reply.message }}</p>
+        <p>Replied at: {{ reply.timestamp }}</p>
+        <hr>
+    {% endfor %}
+{% else %}
+    <p>No replies yet.</p>
+{% endif %}
+
+
+
+
+        </div>
+
+
+<form method="post">
+    {%csrf_token%}
+
+
+     <div class="col-md-12 form-group">
+                                                        <label><b>Add Message<b></b></label><br>
+                                                    </div>
+                                                    <div class="col-md-12 form-group">
+                                                        <textarea id="message" name="new_message" rows="4" cols="102" placeholder="add text here" REQUIRED></textarea>
+                                                    </div>
+
+
+                                  <div class="modal-footer">
+                                             <input type="submit" name="action_button" id="assets_action_button" class="btn btn-success" value="Replay">&nbsp;
+                                            <input type="button" class="btn btn-danger" value="  cancel"></input>
+                                        </div>
+
+
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+</div>
+
+
+
+
+            </div>
+        </div>
+    </section>
+</main>
+
+
+
+
+
+ {%endblock%}

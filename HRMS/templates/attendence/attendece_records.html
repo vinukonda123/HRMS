@@ -1,0 +1,227 @@
+{%extends 'base1.html'%}
+
+{%block content%}
+
+<head>
+
+
+
+    <link rel="stylesheet"  href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+
+
+
+</head>
+<style>
+
+body {
+    font-family: 'Poppins' !important ;
+}
+
+
+table.dataTable thead th, table.dataTable tfoot th {
+    font-weight: 600 !important;
+}
+
+
+b, strong {
+    font-weight: 600 !important;
+}
+</style>
+
+
+<main id="main" class="main">
+
+
+    <section class="section profile">
+
+        <div class="col-xl-12 col-lg-4">
+
+          <div class="card" style="box-shadow:20px 20px 60px whitesmoke,-20px -20px 60px whitesmoke;  padding-top: 50px; padding-right: 1px; padding-bottom: 50px; padding-left: 50px;" >
+
+
+
+
+<div class="col-xl-12">
+    <div class="tab-content" id="v-pills-tabContent">
+
+
+
+                         <div class="tab-pane fade show active" id="v-pills-Attendance" role="tabpanel" aria-labelledby="v-pills-Attendance-tab" tabindex="0" style=" padding-top: 10px; padding-right: 40px; padding-bottom: 50px; padding-left: 2px;">
+
+                        <h3 style="color:#FF1493 ;font-family:math;margin-top:-2%"><b>Attendance Reports</b></h3>
+                         <hr>
+
+
+
+
+
+                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#attendance">
+                                             Filter
+                                           </button><p></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table id="example" class="display mt-5" style="padding-top:1%">
+
+  <!--Table head-->
+
+
+  <thead>
+    <tr>
+
+      <th style="background-color:#EDECEA;text-align:center">Date</th>
+
+
+       <th style="background-color:#EDECEA;text-align:center">Entry Type</th>
+        <th style="background-color:#EDECEA;text-align:center">Timings</th>
+        <th style="background-color:#EDECEA;text-align:center">Status</th>
+
+    </tr>
+  </thead>
+     <tbody>
+
+    {% for record,values in d1.items %}
+    <tr style="font-size: 95%;">
+      <td style="font-family:auto"> {% if record.1 == "Present" %}
+    <span style="color:blue">{{ record.0 }}</span>
+          {%elif record.1 == "Leave" %}
+              <span style="color:red">{{ record.0 }}</span>
+
+
+  {% else %}
+    <span style="color:green">{{ record.0 }}</span>
+  {% endif %}</td>
+        <td align="center" style="font-family:inherit">
+        {% for value in values %}
+
+          {{ value.entry_type }}{% if not forloop.last %}|{% endif %}
+        {% endfor %}
+      </td>
+
+      <td align="center" style="font-family:inherit">
+        {% for value in values %}
+
+          {{value.attendance_date|date:"H:i:s" }}{% if not forloop.last %}|{% endif %}
+        {% endfor %}
+      </td>
+             <td align="center" style="font-family:serif">
+  {% if record.1 == "Present" %}
+    <span style="color:blue">{{ record.1 }}</span>
+  {% elif record.1 == "Leave" %}
+    <span style="color:red">{{ record.1 }}</span>
+  {% else %}
+    <span style="color:green">{{ record.1 }}</span>
+  {% endif %}
+</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+
+
+
+                                           <div class="modal fade model-centered custom-modal" id="attendance" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                                             <div class="modal-dialog modal-lg">
+                                               <div class="modal-content">
+                                                 <div class="modal-header">
+                                                   <h1 class="modal-title fs-5" id="exampleModalLabel" style="">Attendance</h1>
+                                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                 </div>
+                                                 <div class="modal-body">
+
+                                                   <form method="GET" class="form-horizontal" autocomplete="off" action="{% url 'attendence_records'%}">
+
+
+                                                   <div class="row">
+
+
+                                                   <div class="col-md-6 form-group">
+
+                                                       <label for="from_date"><strong>From Date:</strong><span style="color:red" class="star">*</span></label>
+        <input type="date" id="from_date" name="from_date" class="form-control w-75 mt-2" required>
+
+                                                   </div>
+
+
+                                                 <div class="col-md-6 form-group">
+
+                                                     <label for="to_date"><strong>To Date:</strong><span style="color:red" class="star">*</span></label>
+        <input type="date" id="to_date" name="to_date" class="form-control w-75 mt-2" required>
+
+                                                 </div>
+
+
+
+
+
+
+
+
+
+<p></p>
+
+
+
+                                                 <div class="container">
+                                                 <div class="form-group" align="center">
+
+                                                     <button type="submit" name="action_button" id="attendance_action_button" class="btn btn-primary" style="margin-right:-70%" >Get</button>
+                                                 </div>
+                                                 </div>
+                                                 </div>
+
+
+                                                    </form>
+
+
+
+
+
+
+
+
+                                   </div>
+        </div>
+                                             </div></div></div></div></div></div></div>
+    </section>
+</main>
+
+<script>
+     new DataTable('#example');
+ </script>
+{%endblock%}

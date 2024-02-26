@@ -1,0 +1,212 @@
+
+{%extends 'hr/base.html'%}
+
+{%block content%}
+
+
+
+<style>
+/* Style the custom select container */
+.custom-select {
+  position: relative;
+}
+
+/* Style the select wrapper to create a custom dropdown */
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+
+
+
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Style the select element to make it transparent and positioned over the custom dropdown */
+.custom-select select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* Make the select element transparent */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Style the custom dropdown arrow */
+.select-wrapper::after {
+  content: '\25BC'; /* Unicode character for a down arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 8px;
+}
+
+/* Style the custom dropdown when it's focused or hovered */
+.select-wrapper:hover,
+.select-wrapper:focus {
+  border-color: #007bff; /* Change border color on hover or focus */
+}
+
+
+body {
+    font-family: 'Poppins' !important ;
+}
+
+
+
+b, strong {
+    font-weight: 600 !important;
+}
+
+
+</style>
+
+<body>
+<head>
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+<link rel="stylesheet"  href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+
+
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+
+<!-- Add Bootstrap CSS link -->
+
+
+<!-- Add Bootstrap JS scripts (jQuery and Popper.js are required) -->
+
+
+
+
+
+
+
+
+
+
+
+
+           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</head>
+
+
+<main id="main" class="main">
+
+
+    <section class="section profile">
+
+        <div class="col-xl-12">
+
+          <div class="card">
+
+
+
+{%if user.is_manager%}
+
+              <h2  class="ml-3" style="margin-left:15px;color:#FF1493;padding-left:10px;padding-top:15px;font-family:math"><b>Permission Approval</b></h2>
+               <hr style="width:95%;margin-left:2%">
+<div class="card-body">
+
+<div class="row">
+
+
+        <div class="col-md-6 form-group">
+                        <label for="employee"><b>Employee:</b></label>
+                        <input type="text" name="employee" id="employee" value="{{ permission.employee|upper }}" title="" class="form-control" style="margin-top:10px;" readonly disabled>
+                     </div>
+
+     <div class="col-md-6 form-group">
+                        <label><b>Permission Type:</b></label>
+                        <input type="text" name="permission_type" id="permission_type" value="{{ permission.permission_category}}" title="" class="form-control" style="margin-top:10px;" readonly disabled>
+                     </div>
+
+
+        <div class="col-md-6 form-group"><br>
+                        <label><b>Start Date:</b></label>
+                        <input type="date" name="start_date" id="start_date" value="{{ permission.StartDate|date:'Y-m-d' }}" title="" class="form-control" style="margin-top:10px;" readonly disabled>
+                     </div>
+
+
+
+        <div class="col-md-6 form-group"><br>
+                        <label><b>End Date:</b></label>
+                        <input type="date" name="end_date" id="end_date" value="{{ permission.EndDate|date:'Y-m-d' }}" title="" class="form-control" style="margin-top:10px;" readonly disabled>
+                     </div>
+
+
+
+        <div class="col-md-6 form-group"><br>
+                        <label><b>Time:</b></label>
+                        <input type="time" name="time" id="time" value="{{ permission.choose_time|time:'h:i:s'}}" title="" class="form-control" style="margin-top:10px;" readonly disabled>
+                     </div>
+
+
+    <div class="col-md-6 form-group"><br>
+                        <form method="post">
+                           {% csrf_token %}
+                           <label><b>Approval Status:</b></label>
+                           <div class="select-wrapper" style="margin-top:10px;">
+                              <select name="approval_status" id="approval_status" class="form-control" >
+             <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+        </select>
+
+                           </div>
+                     </div>
+
+
+
+
+
+    <div class="col-md-6 form-group"><br>
+                        <label><b>Reason:</b></label>
+        <textarea rows="3" type="text" name="reason" id="reason" value="{{ permission.reason }}" title="" class="form-control" style="margin-top:10px;" readonly disabled></textarea>
+                     </div>
+
+
+
+<script>
+  document.getElementById("reason").value="{{ permission.reason }}";
+</script>
+
+
+
+
+              <div class="col-md-6 form-group"><br>
+                     <label><b>Comments:</b></label>
+                     <textarea name="comments" rows="3" cols="20" id="comments" class="form-control" style="margin-top:10px;"></textarea><br>
+                     </div>
+                  </div>
+
+<div class="" style="margin-left:85%">
+
+<a href="{%url 'pending_permission' %}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: -1px;">Cancel</button></a>
+
+    <button type="submit" class="btn btn-primary">Submit</button></div>
+        {%endif%}
+      </form>
+
+		  </div>
+		</div>
+        </div>
+	</section>
+</main>
+</body>
+
+
+{% endblock%}
